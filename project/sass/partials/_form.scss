@@ -1,0 +1,122 @@
+.stepWizard {
+  background: #f3f6f8;
+  border-top: 1px solid $border-color-gray;
+  border-bottom: 1px solid $border-color-gray;
+  text-transform: uppercase;
+
+  a {
+    text-align: center;
+    border-left: 1px solid $border-color-gray;
+    border-right: 1px solid $border-color-gray;
+    padding: 10px;
+    font-weight: bold;
+    font-family: $headings-font-family;
+    font-size: $font-size-h5;
+    letter-spacing: 2px;
+    @include transition(all .15s ease-in-out);
+    @include border-radius(0);
+
+    &:hover {
+      background: $brand-primary;
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+#new-entry {
+  .form-group{
+    margin: 20px auto;
+    border-bottom: 1px solid $border-color-gray;
+    padding: 20px 0;
+
+    &:last-child{
+      border: none;
+    }
+  }
+
+  label{
+    text-align: left;
+    vertical-align: middle;
+    &.control-label{
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+  }
+  .genders {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 33%;
+    height: 60px;
+    vertical-align: middle;
+    text-align: left;
+    position: relative;
+
+    input[type="radio"] {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+
+      &:checked ~ label{
+        color: $brand-success;
+        opacity: 1;
+
+        svg{
+          stroke: $brand-success;
+        }
+      }
+    }
+
+    label {
+      box-sizing: border-box;
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      cursor: pointer;
+      line-height: 60px;
+      vertical-align: middle;
+      font-size: $font-size-h5;
+      transition: all .5s ease-in-out;
+      opacity: .4;
+      &:hover, &:focus, &:active {
+        opacity: 1;
+      }
+
+      svg{
+        width: 60px;
+        height: 60px;
+        vertical-align: middle;
+        fill: none;
+        stroke-width: 10px;
+        stroke: #000;
+      }
+    }
+  }
+
+  .input-group{
+    float: left;
+    margin-right: 20px;
+    &.day, &.month{
+      width: 20%;
+    }
+
+    &.year{
+      width: 30%;
+    }
+  }
+
+  .dob, .age{
+    display: none;
+  }
+
+  .help-block{
+    margin-bottom: 0;
+
+    & ~ input, & ~ div , ~ label{
+      margin-top: 20px;
+    }
+  }
+}
