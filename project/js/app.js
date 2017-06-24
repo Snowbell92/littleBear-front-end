@@ -75,34 +75,27 @@ $(document).ready(function () {
 
     var sendButton = $('#entry');
     var form = $('newEntry');
-    /*var formData = JSON.stringify($("#newEntry").serializeArray());
-    console.log(formData);*/
-    var formData = JSON.stringify($("#newEntry").serializeArray());
-    /*form.submit(function (e) {
-     e.preventDefault();
-     console.log(formData);
-
-     });*/
 
 
-    form.on('submit', function () {
-        alert(localStorage.getItem('token'));
-        console.log(formData);
-        $.ajax({
-            type: "POST", //GET, POST, PUT
-            url: 'http://103.198.135.55:8000/api/human/new' , //the url to call
-            data: formData,     //Data sent to server
-            contentType: 'application/json',
-            beforeSend: function (xhr) {   //Include the bearer token in header
-                xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.getItem('token'));
-            }
-        }).done(function (response) {
-            alert(response)
-        }).fail(function (err)  {
-            alert(err)
-        });
+    sendButton.click(function(e) {
+        var name = $('#fullname').val();
+        var sex = $('input[name="sex"]:checked').val();
+        var dobFlag = $('input[name="dobFlag"]:checked').val();
+        var age = $('#Age').val();
+        var formData = JSON.stringify({fullname :name,dobFlag: dobFlag, sex: sex, age:age});
+        e.preventDefault();
+        //alert(Cookies.get('token'));
+
+        var url = "http://localhost:8000/api/human/new"
+        var xhr = new XMLHttpRequest();
+        var tokenElement = localStorage.getItem('token');
+
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Authorization", "Bearer "+ Cookies.get('token'));
+
+        xhr.send(formData);
     })
-
-
 });
+
+
 
