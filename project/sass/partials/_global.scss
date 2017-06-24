@@ -13,3 +13,95 @@ h1,h2,h3,h4,h5,h6{
 
 /*bootstrap overrides*/
 .center-block{float: none; display: block; margin:0 auto;}
+
+/*top nav*/
+
+#masthead{
+  border-bottom:1px solid $border-color-gray;
+  padding: 15px 0;
+
+  .brand{
+    @include above-portable-devices{
+      max-width: 30%;
+    }
+  }
+
+  .welcome{
+    float: right;
+    text-align: right;
+    h4{
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .icon{
+      @include border-radius(50%);
+      width:40px;
+      height:40px;
+      display: inline-block;
+      border: 1px solid $border-color-gray;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+    svg{
+      fill: $border-color-gray;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+#nav{
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 15px 0;
+
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      float: left;
+      margin-right: 10px;
+
+      &:last-child{
+        margin-right: 0;
+      }
+      a{
+        color:$brand-primary;
+        border: 1px solid $brand-primary;
+        @include border-radius(4px);
+        padding: 10px;
+        font-family: $headings-font-family;
+        font-size: $font-size-h5;
+        text-align: center;
+        display: inline-block;
+        @include transition(background ease-in-out .15s, color ease-in-out .15s);
+
+        span{
+          display: block;
+          text-align: center;
+        }
+
+        svg{
+          fill: $brand-primary;
+          width: 25px;
+          height: 25px;
+        }
+
+        &:hover{
+          background: #2c3e50;  /* fallback for old browsers */
+          background: -webkit-linear-gradient(to left, #3498db, #2c3e50);  /* Chrome 10-25, Safari 5.1-6 */
+          background: linear-gradient(to left, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          color:white;
+          text-decoration: none;
+
+          svg{
+            fill:white;
+          }
+        }
+      }
+    }
+  }
+}
