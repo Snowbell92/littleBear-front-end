@@ -116,3 +116,59 @@
   -moz-border-radius: $radius;
   border-radius: $radius;
 }
+
+// =============================================================================
+// media query mixins
+// =============================================================================
+
+$xtra-small-width: 480px;
+$small-width : 768px;
+$medium-width: 992px;
+$large-width:1200px;
+$xtra-large-width: 1600px;
+
+@mixin small-mobile{
+  @media screen and (max-width:$xtra-small-width){
+    @content
+  }
+}
+
+@mixin mobile{
+  @media screen and (max-width: $small-width){
+    @content
+  }
+}
+@mixin not-mobile{
+  @media screen and (min-width: $small-width){
+    @content
+  }
+}
+
+@mixin tablet{
+  @media screen and (min-width: $small-width) and (max-width: $medium-width){
+    @content
+  }
+}
+
+@mixin desktop{
+  @media screen and (min-width: $large-width){
+    @content
+  }
+}
+
+@mixin below-portable-devices{
+  @media screen and (max-width: $medium-width){
+    @content
+  }
+}
+@mixin above-portable-devices{
+  @media screen and (min-width: $medium-width){
+    @content
+  }
+}
+
+@mixin below-desktop{
+  @media screen and (max-width: $large-width){
+    @content
+  }
+}

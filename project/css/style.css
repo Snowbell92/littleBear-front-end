@@ -3303,6 +3303,16 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh;
   }
 }
+.login-screen {
+  background: url("../assets/images/city.png") repeat-x left bottom;
+  background-size: 50%;
+}
+@media screen and (max-width: 768px) {
+  .login-screen {
+    background-size: 80%;
+  }
+}
+
 .login-form {
   border: 1px solid #e6e6e6;
   -webkit-border-radius: 4px;

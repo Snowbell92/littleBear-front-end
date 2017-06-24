@@ -14,6 +14,15 @@
   }
 }
 
+.login-screen{
+  background: url("../assets/images/city.png") repeat-x left bottom;
+  background-size: 50%;
+
+  @include mobile{
+    background-size: 80%;
+  }
+
+}
 .login-form{
 
   border:1px solid $border-color-gray;
