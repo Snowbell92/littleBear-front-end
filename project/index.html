@@ -8,6 +8,9 @@
     <meta name="description" content="Little bear is the app for collecting data. Owned by Littlebear">
     <title>Little Bear | Please log in to continue</title>
     <link rel="stylesheet" href="css/style.css" media="screen">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
 </head>
 
 <body class="login-screen">
@@ -22,7 +25,7 @@
                     </div>
                     <form>
                         <div class="form-group has-feedback">
-                            <label for="userName" class="sr-only">Email address</label>
+                            <label for="userName" class="sr-only">User Name</label>
                             <input type="text" class="form-control" id="userName" placeholder="type your username">
                             <span class="form-control-feedback">
                                 <svg role="img"><use xlink:href="assets/images/icons.svg#user"></use></svg>
@@ -40,12 +43,42 @@
                                 <input type="checkbox"> Remember me
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Log in</button>
                     </form>
+                    <button class="btn btn-primary">login</button>
+                    <div id="token"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="application/javascript">
+
+    $("button").click(function(e) {
+        e.preventDefault();
+        var loginUrl = "http://localhost/littlebear/web/app_dev.php/api/login_check"
+        var userElement = document.getElementById('userName');
+        var passwordElement = document.getElementById('password');
+        var user = userElement.value;
+        var password = passwordElement.value;
+
+        $.ajax({
+            type        : "POST",
+            url         : loginUrl,
+            data        :  {_username: user , _password: password},
+            success     : function(data, status, object) {
+
+                var token = (data.token);
+
+                localStorage.setItem('token', token);
+            },
+            error: function(data, status, object){
+                console.log(data);
+            }
+        });
+    });
+
+
+
+</script>
 </body>
 </html>
