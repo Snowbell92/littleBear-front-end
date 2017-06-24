@@ -55,6 +55,7 @@ h1,h2,h3,h4,h5,h6{
   background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 15px 0;
+  border-bottom: 1px solid $border-color-gray;
 
   ul{
     list-style: none;
@@ -104,4 +105,14 @@ h1,h2,h3,h4,h5,h6{
       }
     }
   }
+}
+
+.jumbotron{
+  font-size: $font-size-h3;
+  text-align: center;
+  vertical-align: middle;
+  @include border-radius(4px);
+  background: $border-color-gray;
+  margin: 20px auto;
+  padding: 30px ;
 }

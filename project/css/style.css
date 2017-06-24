@@ -3717,6 +3717,7 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(to left, #FFFFFF, #ECE9E6);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 15px 0;
+  border-bottom: 1px solid #e6e6e6;
 }
 #nav ul {
   list-style: none;
@@ -3766,6 +3767,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 #nav ul li a:hover svg {
   fill: white;
+}
+
+.jumbotron {
+  font-size: 21px;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background: #e6e6e6;
+  margin: 20px auto;
+  padding: 30px;
 }
 
 @supports (display: flex) {
