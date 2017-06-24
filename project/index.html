@@ -60,6 +60,7 @@
         var passwordElement = document.getElementById('password');
         var user = userElement.value;
         var password = passwordElement.value;
+        var result = false;
 
         $.ajax({
             type        : "POST",
@@ -67,14 +68,22 @@
             data        :  {_username: user , _password: password},
             success     : function(data, status, object) {
 
+                var result = true;
+
                 var token = (data.token);
 
                 localStorage.setItem('token', token);
+
             },
             error: function(data, status, object){
                 console.log(data);
             }
         });
+
+        if (result = true){
+
+            window.location.href= "http://localhost/littlebearui/project/dashboard.html";
+        }
     });
 
 
