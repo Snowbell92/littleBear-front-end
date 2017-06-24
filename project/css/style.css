@@ -4273,6 +4273,9 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 
+#new-entry .panel {
+  margin-bottom: 40px;
+}
 #new-entry .form-group {
   margin: 20px auto;
   border-bottom: 1px solid #e6e6e6;

@@ -65,10 +65,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 center-block">
-                    <div class="btn-group btn-group-justified" role="group" aria-label="Add new entry step buttons">
-                        <a role="button" class="btn" id="step1">Personal info</a>
-                        <a role="button" class="btn" disabled="disabled" id="step2">Location info</a>
-                        <a role="button" class="btn" disabled="disabled" id="step3">Add Photo &amp; Submit</a>
+                    <div class="btn-group btn-group-justified steps" role="group" aria-label="Add new entry step buttons">
+                        <a role="button" class="btn" href="#step1">Personal info</a>
+                        <a role="button" class="btn" disabled="disabled" href="#step2">Location info</a>
+                        <a role="button" class="btn" disabled="disabled" href="#step3">Add Photo &amp; Submit</a>
                     </div>
                 </div>
             </div>
@@ -77,14 +77,14 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8 center-block">
-                <form method="post" class="form-horizontal">
+                <form method="post" class="form-horizontal" id="newEntry">
 
-                    <div class="step1">
+                    <div class="step step1" id="step1">
                         <div class="panel">
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Name</label>
+                                <label for="fullname" class="col-sm-2 control-label">Name</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="name" placeholder="Type your name">
+                                    <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Type your name">
                                 </div>
                             </div>
 
@@ -92,7 +92,7 @@
                                 <label class="col-sm-2 control-label">Gender</label>
                                 <div class="col-sm-10">
                                     <p class="genders">
-                                        <input name="gender" id="male" value="Male" checked="" type="radio">
+                                        <input name="sex" id="male" value="1" type="radio">
                                         <label for="male" class="icon-label">
                                             <svg>
                                                 <use xlink:href="assets/images/icons.svg#male"></use>
@@ -102,7 +102,7 @@
                                     </p>
 
                                     <p class="genders">
-                                        <input name="gender" id="female" value="Female" type="radio">
+                                        <input name="sex" id="female" value="2" type="radio">
                                         <label for="female" class="icon-label">
                                             <svg>
                                                 <use xlink:href="assets/images/icons.svg#female"></use>
@@ -112,7 +112,7 @@
                                     </p>
 
                                     <p class="genders">
-                                        <input name="gender" id="thirdGender" value="Third Gender" type="radio">
+                                        <input name="sex" id="thirdGender" value="3" type="radio">
                                         <label for="thirdGender" class="icon-label">
                                             <svg>
                                                 <use xlink:href="assets/images/icons.svg#unisex"></use>
@@ -131,11 +131,11 @@
                                         <p class="help-block">If not, select no and we will calculate the year for you.</p>
 
                                         <label class="radio-inline">
-                                            <input type="radio" name="ageKnown" id="inlineRadio1" value="yes"> Yes,I Do
+                                            <input type="radio" name="dobFlag" value="0"> Yes,I Do
                                         </label>
 
                                         <label class="radio-inline">
-                                            <input type="radio" name="ageKnown" id="inlineRadio2" value="no"> No, I don't
+                                            <input type="radio" name="dobFlag" value="1"> No, I don't
                                         </label>
                                     </div>
 
@@ -163,11 +163,44 @@
                                     <div class="age">
                                         <p class="help-block lead">No Problem! Type your age below. </p>
                                         <p class="help-block">We will calculate the year for you.</p>
-                                        <input type="text" class="form-control" id="age"
+                                        <input type="text" class="form-control" id="age" name="age"
                                                placeholder="What is your age?">
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="text-right">
+                                <button class="btn btn-success nextBtn" type="button">Next</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="step step2" id="step2">
+                        <div class="panel">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="address">Location</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Address line 1" name="address" id="address">
+                                </div>
+                            </div>
+                            <div class="buttons clearfix">
+                                <button class="btn btn-success nextBtn pull-right" type="button">Next</button>
+                                <button class="btn btn-success prevBtn pull-left" type="button">Prev</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step step3" id="step3">
+                        <div class="panel">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2"> Add photograph</label>
+                                <div class="col-sm-10">
+                                    photograph input
+                                </div>
+                            </div>
+                            <button class="btn btn-success submit pull-right" type="submit" id="entry">Submit</button>
+
                         </div>
                     </div>
                 </form>

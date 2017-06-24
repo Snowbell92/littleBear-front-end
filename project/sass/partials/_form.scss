@@ -25,6 +25,10 @@
 }
 
 #new-entry {
+  .panel{
+    margin-bottom: 40px;
+  }
+
   .form-group{
     margin: 20px auto;
     border-bottom: 1px solid $border-color-gray;

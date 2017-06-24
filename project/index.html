@@ -56,6 +56,7 @@
     $("button").click(function(e) {
         e.preventDefault();
         var loginUrl = "http://103.198.135.55:8000/api/login_check";
+        //var loginUrl = "http://localhost:8000/api/login_check"
         var userElement = document.getElementById('userName');
         var passwordElement = document.getElementById('password');
         var user = userElement.value;
@@ -83,8 +84,11 @@
         if (result = true){
 
             window.location.href= "http://103.198.135.55:8080/dashboard.html";
+
         }
     });
+
+    //alert(localStorage.getItem('token', token))
 
 
 
