@@ -81,12 +81,12 @@ $(document).ready(function () {
         var name = $('#fullname').val();
         var sex = $('input[name="sex"]:checked').val();
         var dobFlag = $('input[name="dobFlag"]:checked').val();
-        var age = $('#Age').val();
+        var age = $('#age').val();
         var formData = JSON.stringify({fullname :name,dobFlag: dobFlag, sex: sex, age:age});
         e.preventDefault();
         //alert(Cookies.get('token'));
 
-        var url = "http://localhost:8000/api/human/new"
+        var url = "http://103.198.135.55:8000/api/human/new"
         var xhr = new XMLHttpRequest();
         var tokenElement = localStorage.getItem('token');
 
@@ -94,6 +94,8 @@ $(document).ready(function () {
         xhr.setRequestHeader("Authorization", "Bearer "+ Cookies.get('token'));
 
         xhr.send(formData);
+
+       alert(xhr.responseText);
     })
 });
 
