@@ -95,7 +95,7 @@ $(document).ready(function () {
 
         xhr.send(formData);
 
-       alert(xhr.responseText);
+       alert(success);
     })
 });
 
