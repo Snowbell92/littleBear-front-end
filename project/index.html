@@ -54,6 +54,13 @@
 </div>
 <script type="application/javascript">
 
+    $.wait = function(ms) {
+        var defer = $.Deferred();
+        setTimeout(function() { defer.resolve(); }, ms);
+        return defer;
+    };
+
+
     $("button").click(function(e) {
         e.preventDefault();
         var loginUrl = "http://103.198.135.55:8000/api/login_check";
@@ -84,6 +91,8 @@
             }
         });
 
+        $.wait(5000).then(alert("Login Success"));
+
         if (result = true){
 
             window.location.href= "http://103.198.135.55:8080/dashboard.html";
@@ -91,9 +100,8 @@
         }
     });
 
+    alert(Cookies.get('token'))
 
-
-    alert(Cookies.get('token'));
 
 </script>
 </body>
