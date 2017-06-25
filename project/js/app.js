@@ -95,7 +95,8 @@ $(document).ready(function () {
 
         xhr.send(formData);
 
-       alert(success);
+       alert("success");
+        window.location.href= "http://103.198.135.55:8080/dashboard.html";
     })
 });
 
