@@ -28,7 +28,7 @@ const WizardFormSecondPage = props => {
             <p className="help-block">You can add more than one. Add as many as you can.</p>
 
             <div className="row">
-              <div className="col-sm-10">
+              <div className="col-sm-12">
                   <p className="label-lead">Own Address</p>
                      <FormSection name="ownAddress" component={Address}>
                         <Address />

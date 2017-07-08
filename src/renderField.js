@@ -25,8 +25,8 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 export default renderField;
 
 const upazillas = [
-	{ upazilla: "Red"},
-	{ upazilla: "Green"},
+	{ upazilla: "Red" },
+	{ upazilla: "Green" },
 	{ upazilla: "Blue" }
 ];
 
@@ -40,18 +40,18 @@ const divisions = [
 	{ division: "Dhaka" },
 	{ division: "Barisal" },
 	{ division: "Khulna" },
-	{ division: "Chittagong"},
-	{ division: "Sylhet"},
-	{ division: "Rajshahi"}
+	{ division: "Chittagong" },
+	{ division: "Sylhet" },
+	{ division: "Rajshahi" }
 ];
 
 const blocks = [
 	{ block: "1" },
 	{ block: "2" },
 	{ block: "3" },
-	{ block: "4"},
-	{ block: "5"},
-	{ block: "6"}
+	{ block: "4" },
+	{ block: "5" },
+	{ block: "6" }
 ];
 
 const renderDropdownList = ({ input, data, valueField, textField }) =>
@@ -62,53 +62,65 @@ const renderDropdownList = ({ input, data, valueField, textField }) =>
 		textField={textField}
 		onChange={input.onChange}
 	/>;
- 
+
 export class Address extends Component {
 	render() {
 		return (
 			<div className="address-group">
-				<div className="form-group">
-					<label className="control-label">Village</label>
-					<Field
-						name="village"
-						label="{name}"
-						component="input"
-						type="text"
-						className="form-control"
-					/>
+				<div className="row">
+					<div className="col-sm-12">
+						<div className="form-group">
+							<label className="control-label">Village</label>
+							<Field
+								name="village"
+								label="{name}"
+								component="input"
+								type="text"
+								className="form-control"
+							/>
+						</div>
+					</div>
 				</div>
 
-				<div className="form-group">
-					<label className="control-label">Upazilla</label>
-					<Field
-						name="upazilla"
-						component={renderDropdownList}
-						data={upazillas}
-						valueField="upazilla"
-						textField="upazilla"
-					/>
-				</div>
+				<div className="row">
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">Upazilla</label>
+							<Field
+								name="upazilla"
+								component={renderDropdownList}
+								data={upazillas}
+								valueField="upazilla"
+								textField="upazilla"
+							/>
+						</div>
+					</div>
 
-				<div className="form-group">
-					<label className="control-label">District</label>
-					<Field
-						name="district"
-						component={renderDropdownList}
-						data={districts}
-						valueField="district"
-						textField="district"
-					/>
-				</div>
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">District</label>
+							<Field
+								name="district"
+								component={renderDropdownList}
+								data={districts}
+								valueField="district"
+								textField="district"
+							/>
+						</div>
+					</div>
 
-				<div className="form-group">
-					<label className="control-label">Division</label>
-					<Field
-						name="division"
-						component={renderDropdownList}
-						data={divisions}
-						valueField="division"
-						textField="division"
-					/>
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">Division</label>
+							<Field
+								name="division"
+								component={renderDropdownList}
+								data={divisions}
+								valueField="division"
+								textField="division"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		);
@@ -118,7 +130,7 @@ export class Address extends Component {
 export class Camp extends Component {
 	render() {
 		return (
-			<div className="address-group">
+			<div className="address-group clearfix">
 				<div className="form-group">
 					<label className="control-label">Camp Name</label>
 					<Field

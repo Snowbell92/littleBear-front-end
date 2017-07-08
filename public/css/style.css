@@ -3242,3 +3242,25 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0; }
   #new-entry .help-block ~ input, #new-entry .help-block ~ div, #new-entry .help-block ~ label {
     margin-top: 20px; }
+
+#new-entry .label-lead {
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase; }
+
+#new-entry .address-group {
+  border-bottom: 1px solid #e6e6e6;
+  margin: 0 auto 20px;
+  padding-top: 0;
+  padding-bottom: 20px; }
+  #new-entry .address-group:last-child {
+    border-bottom: none; }
+  #new-entry .address-group .form-group {
+    border-bottom: none;
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0; }
+    #new-entry .address-group .form-group label {
+      font-weight: normal; }
