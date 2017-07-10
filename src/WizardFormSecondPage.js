@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Field, reduxForm, FormSection } from "redux-form";
-import { connect } from "react-redux";
 import validate from "./validate";
-import renderField from "./renderField";
 import { Address } from "./renderField";
 import { Camp } from "./renderField";
 

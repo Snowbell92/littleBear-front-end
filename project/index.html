@@ -54,53 +54,7 @@
 </div>
 <script type="application/javascript">
 
-    $.wait = function(ms) {
-        var defer = $.Deferred();
-        setTimeout(function() { defer.resolve(); }, ms);
-        return defer;
-    };
 
-
-    $("button").click(function(e) {
-        e.preventDefault();
-        var loginUrl = "http://103.198.135.55:8000/api/login_check";
-        /*var loginUrl = "http://localhost:8000/api/login_check"*/
-        var userElement = document.getElementById('userName');
-        var passwordElement = document.getElementById('password');
-        var user = userElement.value;
-        var password = passwordElement.value;
-        var result = false;
-
-        $.ajax({
-            type        : "POST",
-            url         : loginUrl,
-            data        :  {_username: user , _password: password},
-            success     : function(data, status, object) {
-
-                var result = true;
-
-                var token = (data.token);
-
-                Cookies.set('token', token);
-
-                localStorage.setItem('token', token);
-
-            },
-            error: function(data, status, object){
-                console.log(data);
-            }
-        });
-
-        $.wait(5000).then(alert("Login Success"));
-
-        if (result = true){
-
-            window.location.href= "http://103.198.135.55:8080/dashboard.html";
-            /*window.location.href= "http://localhost/littlebearui/project/dashboard.html";*/
-        }
-    });
-
-    alert(Cookies.get('token'))
 
 
 </script>
