@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Field, reduxForm, FormSection } from "redux-form";
 import validate from "./validate";
 import { Address } from "./renderField";

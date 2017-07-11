@@ -1,5 +1,10 @@
 import React from "react";
-import {Field, reduxForm, formValueSelector} from "redux-form";
+import {
+    Field,
+    reduxForm,
+    formValueSelector,
+    SubmissionError
+} from "redux-form";
 import {connect} from "react-redux";
 import validate from "./validate";
 import renderField from "./renderField";
@@ -69,14 +74,20 @@ let WizardFormFirstPage = props => {
                                     Third Gender
                                 </label>
                             </p>
-                            <p><Field name="sex" component={renderError}/></p>
+                            <p>
+                                {" "}<Field name="sex" component={renderError}/>
+                            </p>
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Marital Status</label>
                         <div className="col-sm-6">
-                            <Field name="maritalStatus" component="select" className="form-control">
+                            <Field
+                                name="maritalStatus"
+                                component="select"
+                                className="form-control"
+                            >
                                 <option />
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
@@ -84,10 +95,11 @@ let WizardFormFirstPage = props => {
                                 <option value="divorced">Divorced</option>
                                 <option value="widowed">Widowed</option>
                             </Field>
-                            <p><Field name="maritalStatus" component={renderError}/></p>
+                            <p>
+                                {" "}<Field name="maritalStatus" component={renderError}/>
+                            </p>
                         </div>
                     </div>
-
 
                     <div className="form-group">
                         <label className="col-sm-2 control-label">Date of Birth</label>
@@ -120,8 +132,28 @@ let WizardFormFirstPage = props => {
                                     />{" "}
                                     no, I don't{" "}
                                 </label>
-                                <p><Field name="dobFlag" component={renderError}/></p>
+                                <p>
+                                    {" "}<Field name="dobFlag" component={renderError}/>
+                                </p>
                             </div>
+                            {hasDOB == 1 &&
+                            <div className="age">
+                                <p className="help-block lead">
+                                    No Problem! Type your age below.{" "}
+                                </p>
+                                <p className="help-block">
+                                    We will calculate the year for you.
+                                </p>
+                                <Field
+                                    name="age"
+                                    type="text"
+                                    component="input"
+                                    label="age"
+                                    className="form-control"
+                                    placeholder="What is your age?"
+                                />
+                            </div>}
+
 
                             {hasDOB == 0 &&
                             <div className="dob clearfix">
@@ -163,22 +195,8 @@ let WizardFormFirstPage = props => {
                                     <span className="input-group-addon">Year</span>
                                 </div>
                             </div>}
-                            {hasDOB == 1 &&
-                            <div className="age">
-                                <p className="help-block lead">
-                                    No Problem! Type your age below.{" "}
-                                </p>
-                                <p className="help-block">
-                                    We will calculate the year for you.
-                                </p>
-                                <Field
-                                    name="age"
-                                    type="text"
-                                    component="input"
-                                    label="age"
-                                    className="form-control" placeholder="What is your age?"
-                                />
-                            </div>}
+
+
                         </div>
                     </div>
                 </div>
@@ -192,8 +210,17 @@ let WizardFormFirstPage = props => {
     );
 };
 
+
+/*export default reduxForm({
+
+})(WizardFormFirstPage);*/
+
 WizardFormFirstPage = reduxForm({
-    form: "wizard" // a unique identifier for this form
+    form: "wizard", // a unique identifier for this form
+    destroyOnUnmount: false, //        <------ preserve form data
+    forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+    asyncBlurFields: [],
+    validate
 })(WizardFormFirstPage);
 
 const selector = formValueSelector("wizard"); // <-- same as form name
@@ -206,9 +233,4 @@ WizardFormFirstPage = connect(state => {
     };
 })(WizardFormFirstPage);
 
-export default reduxForm({
-    form: "wizard", //                 <------ same form name
-    destroyOnUnmount: false, //        <------ preserve form data
-    forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
-    validate
-})(WizardFormFirstPage);
+export default WizardFormFirstPage;
