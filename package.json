@@ -4,6 +4,7 @@
   "description": "this is the test repo for creating a multi step form with react and redux",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.16.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",

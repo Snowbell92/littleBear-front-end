@@ -25,33 +25,19 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 export default renderField;
 
 const upazillas = [
-	{ upazilla: "Red" },
-	{ upazilla: "Green" },
-	{ upazilla: "Blue" }
+	"red", "green","blue"
 ];
 
 const districts = [
-	{ district: "Red" },
-	{ district: "Green" },
-	{ district: "Blue" }
+    "1","2","3","4","5","6"
 ];
 
 const divisions = [
-	{ division: "Dhaka" },
-	{ division: "Barisal" },
-	{ division: "Khulna" },
-	{ division: "Chittagong" },
-	{ division: "Sylhet" },
-	{ division: "Rajshahi" }
+    "Dhaka", "Barisal","Khulna","Chittagong","Sylhet","Rajshahi"
 ];
 
 const blocks = [
-	{ block: "1" },
-	{ block: "2" },
-	{ block: "3" },
-	{ block: "4" },
-	{ block: "5" },
-	{ block: "6" }
+	"1","2","3","4","5","6"
 ];
 
 const renderDropdownList = ({ input, data, valueField, textField }) =>
