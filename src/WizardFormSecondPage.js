@@ -17,7 +17,7 @@ const WizardFormSecondPage = props => {
     <form onSubmit={handleSubmit} className="form-horizontal">
       <div className="panel">
         <div className="form-group">
-          <label className="control-label col-sm-2" for="address">
+          <label className="control-label col-sm-2" htmlFor="address">
             Location
           </label>
           <div className="col-sm-10">

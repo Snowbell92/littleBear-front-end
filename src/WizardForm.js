@@ -21,6 +21,11 @@ class WizardForm extends Component {
     this.setState({ page: this.state.page - 1 });
   }
 
+  onSubmit(values) {
+        console.log(values);
+        // Call the action creator which is responsible for saving data here.
+  }
+
   render() {
     const { onSubmit } = this.props;
     const { page } = this.state;
