@@ -12,7 +12,8 @@
     "react-widgets": "^4.0.0-rc.14",
     "redux": "^3.7.1",
     "redux-form": "^6.8.0",
-    "redux-form-website-template": "^0.0.45"
+    "redux-form-website-template": "^0.0.45",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {

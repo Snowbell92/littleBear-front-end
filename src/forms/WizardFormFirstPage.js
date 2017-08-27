@@ -6,8 +6,9 @@ import {
     SubmissionError
 } from "redux-form";
 import {connect} from "react-redux";
-import validate from "./validate";
-import renderField from "./renderField";
+import validate from "../middleware/validate";
+import renderField from "../components/renderField";
+import Icon from '../helpers/svgImports';
 const renderError = ({meta: {touched, error}}) =>
     touched && error
         ? <span>
@@ -36,9 +37,7 @@ let WizardFormFirstPage = props => {
                                     id="male"
                                 />{" "}
                                 <label className="icon-label" htmlFor="male">
-                                    <svg>
-                                        <use xlinkHref="assets/images/icons.svg#male"/>
-                                    </svg>
+                                    <Icon icon ="male"/>
                                     Male
                                 </label>
                             </p>
@@ -52,9 +51,7 @@ let WizardFormFirstPage = props => {
                                     id="female"
                                 />{" "}
                                 <label className="icon-label" htmlFor="female">
-                                    <svg>
-                                        <use xlinkHref="assets/images/icons.svg#female"/>
-                                    </svg>
+                                    <Icon icon ="female"/>
                                     Female
                                 </label>
                             </p>
@@ -68,9 +65,7 @@ let WizardFormFirstPage = props => {
                                     id="thirdGender"
                                 />{" "}
                                 <label className="icon-label" htmlFor="thirdGender">
-                                    <svg>
-                                        <use xlinkHref="assets/images/icons.svg#unisex"/>
-                                    </svg>
+                                    <Icon icon ="unisex"/>
                                     Third Gender
                                 </label>
                             </p>

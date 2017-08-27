@@ -1,8 +1,8 @@
 import React from "react";
 import { Field, reduxForm, FormSection } from "redux-form";
-import validate from "./validate";
-import { Address } from "./renderField";
-import { Camp } from "./renderField";
+import validate from "../middleware/validate";
+import { Address } from "../components/renderField";
+import { Camp } from "../components/renderField";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error

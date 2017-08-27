@@ -1,11 +1,10 @@
-import { createStore, combineReducers } from 'redux';
-import { reducer as reduxFormReducer } from 'redux-form';
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import api from './middleware/api'
+import reducer from './reducers'
 
-const reducer = combineReducers({
-  form: reduxFormReducer, // mounted under "form"
-});
-const store = (window.devToolsExtension
-  ? window.devToolsExtension()(createStore)
-  : createStore)(reducer);
+let createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore);
+
+let store = createStoreWithMiddleware(reducer);
 
 export default store;
