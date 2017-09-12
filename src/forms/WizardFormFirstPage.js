@@ -7,7 +7,7 @@ import {
 } from "redux-form";
 import {connect} from "react-redux";
 import validate from "../middleware/validate";
-import renderField from "../components/renderField";
+import {renderField, Label} from "../components/renderField";
 import Icon from '../helpers/svgImports';
 const renderError = ({meta: {touched, error}}) =>
     touched && error
@@ -17,15 +17,93 @@ const renderError = ({meta: {touched, error}}) =>
         : false;
 
 let WizardFormFirstPage = props => {
-    const {hasDOB, handleSubmit} = props;
+    const {hasLocation ,hasDOB, handleSubmit} = props;
     return (
         <form onSubmit={handleSubmit} className="form-horizontal">
             <div className="step step-1">
                 <div className="panel">
+                    <div className="form-group">
+                        <Label width="sm-2" name="Household" refClass="control-label" />
+                        <div className="col-sm-10">
+                            <p className="help-block lead">
+                               Are you part of an existing family?
+                            </p>
+                            <p className="help-block">
+                                select yes or no. if your family does not exist in our database, we will create a new entry for your family.
+                            </p>
+
+                            <div className="location">
+                                <label className="radio-inline">
+                                    <Field
+                                        name="familyFlag"
+                                        component="input"
+                                        type="radio"
+                                        value="1"
+                                    />{" "}
+                                    Yes{" "}
+                                </label>
+
+                                <label className="radio-inline">
+                                    <Field
+                                        name="familyFlag"
+                                        component="input"
+                                        type="radio"
+                                        value="0"
+                                    />{" "}
+                                    No{" "}
+                                </label>
+                                <p>
+                                    {" "}<Field name="familyFlag" component={renderError}/>
+                                </p>
+
+
+                                {hasLocation == 1 &&
+                                <div className="age">
+                                    <p className="help-block lead">
+                                        That's great! Find and select your household from below.
+                                    </p>
+                                    <p className="help-block">
+                                        start typing the friendly name of your household and you will be shown a list of choices. select the correct one.
+                                    </p>
+                                    <Field
+                                        name="family"
+                                        type="text"
+                                        component="input"
+                                        label="family"
+                                        className="form-control"
+                                        placeholder="select your family"
+                                    />
+                                </div>}
+
+                                {hasLocation == 0 &&
+                                <div className="age">
+                                    <p className="help-block lead">
+                                        No problem! Enter a friendly name for your family below.
+                                    </p>
+                                    <p className="help-block">
+                                        Once you have put a friendly name in, continue with filling in the rest of the inputs.
+                                    </p>
+                                    <Field
+                                        name="family"
+                                        type="text"
+                                        component="input"
+                                        label="family"
+                                        className="form-control"
+                                        placeholder="type a friendly name for your family"
+                                    />
+                                </div>}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
                     <Field name="name" type="text" component={renderField} label="name"/>
 
                     <div className="form-group">
-                        <label className="col-sm-2 control-label">Sex</label>
+                        <Label width="sm-2" name="sex" refClass="control-label" />
 
                         <div className="col-sm-10">
                             <p className="genders">
@@ -37,7 +115,7 @@ let WizardFormFirstPage = props => {
                                     id="male"
                                 />{" "}
                                 <label className="icon-label" htmlFor="male">
-                                    <Icon icon ="male"/>
+                                    <Icon icon="male"/>
                                     Male
                                 </label>
                             </p>
@@ -51,7 +129,7 @@ let WizardFormFirstPage = props => {
                                     id="female"
                                 />{" "}
                                 <label className="icon-label" htmlFor="female">
-                                    <Icon icon ="female"/>
+                                    <Icon icon="female"/>
                                     Female
                                 </label>
                             </p>
@@ -65,7 +143,7 @@ let WizardFormFirstPage = props => {
                                     id="thirdGender"
                                 />{" "}
                                 <label className="icon-label" htmlFor="thirdGender">
-                                    <Icon icon ="unisex"/>
+                                    <Icon icon="unisex"/>
                                     Third Gender
                                 </label>
                             </p>
@@ -76,7 +154,7 @@ let WizardFormFirstPage = props => {
                     </div>
 
                     <div className="form-group">
-                        <label className="col-sm-2 control-label">Marital Status</label>
+                        <Label width="sm-2" name="Marital Status" refClass="control-label" />
                         <div className="col-sm-6">
                             <Field
                                 name="maritalStatus"
@@ -97,7 +175,7 @@ let WizardFormFirstPage = props => {
                     </div>
 
                     <div className="form-group">
-                        <label className="col-sm-2 control-label">Date of Birth</label>
+                        <Label width="sm-2" name="Date of Birth" refClass="control-label" />
 
                         <div className="col-sm-10">
                             <div className="findAge">
@@ -205,11 +283,6 @@ let WizardFormFirstPage = props => {
     );
 };
 
-
-/*export default reduxForm({
-
-})(WizardFormFirstPage);*/
-
 WizardFormFirstPage = reduxForm({
     form: "wizard", // a unique identifier for this form
     destroyOnUnmount: false, //        <------ preserve form data
@@ -223,7 +296,9 @@ const selector = formValueSelector("wizard"); // <-- same as form name
 WizardFormFirstPage = connect(state => {
     // can select values individually
     const hasDOB = selector(state, "dobFlag");
+    const hasLocation = selector(state, "familyFlag")
     return {
+        hasLocation,
         hasDOB
     };
 })(WizardFormFirstPage);

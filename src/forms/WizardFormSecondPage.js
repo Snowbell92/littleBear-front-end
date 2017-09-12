@@ -1,8 +1,7 @@
 import React from "react";
 import { Field, reduxForm, FormSection } from "redux-form";
 import validate from "../middleware/validate";
-import { Address } from "../components/renderField";
-import { Camp } from "../components/renderField";
+import { Address, Camp, Location } from "../components/renderField";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error
@@ -12,7 +11,7 @@ const renderError = ({ meta: { touched, error } }) =>
     : false;
 
 const WizardFormSecondPage = props => {
-  const { handleSubmit, previousPage } = props;
+  const { handleSubmit, previousPage} = props;
   return (
     <form onSubmit={handleSubmit} className="form-horizontal">
       <div className="panel">
@@ -21,7 +20,7 @@ const WizardFormSecondPage = props => {
             Location
           </label>
           <div className="col-sm-10">
-            <p className="help-block lead">Write the address below</p>
+            <p className="help-block lead">Write your address below</p>
             <p className="help-block">You can add more than one. Add as many as you can.</p>
 
             <div className="row">
@@ -40,6 +39,11 @@ const WizardFormSecondPage = props => {
                      <FormSection name="camp" component={Camp}>
                        <Camp />
                     </FormSection>
+
+                  <p className="label-lead">Location Coordinates</p>
+                  <FormSection name="location" component={Location}>
+                      <Location />
+                  </FormSection>
               </div>
             </div>
           </div>              

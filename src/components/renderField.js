@@ -3,6 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import DropdownList from "react-widgets/lib/DropdownList";
 import "react-widgets/dist/css/react-widgets.css";
 
+
 const renderField = ({ input, label, type, meta: { touched, error } }) =>
 	<div className="form-group">
 		<label className="col-sm-2 control-label">
@@ -22,7 +23,33 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 				</span>}
 		</div>
 	</div>;
-export default renderField;
+
+
+const Label = (props) => (
+	<label className={`col-${props.width} ${props.refClass}`}>{props.name}</label>
+
+);
+class Location extends Component {
+
+    render()
+    {
+
+        return(
+            <div>
+                <button type="button" className="btn btn-primary">Get your location</button>
+            </div>
+            )
+    }
+}
+
+export {
+	renderField,
+	Label,
+	Location
+};
+
+
+
 
 const upazillas = [
 	"red", "green","blue"
@@ -153,3 +180,4 @@ export class Camp extends Component {
 		);
 	}
 }
+

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WizardFormFirstPage from './WizardFormFirstPage';
 import WizardFormSecondPage from './WizardFormSecondPage';
 import WizardFormThirdPage from './WizardFormThirdPage';
+import WizardFormPreview from './WizardFormPreview';
 
 class WizardForm extends Component {
   constructor(props) {
@@ -40,7 +41,12 @@ class WizardForm extends Component {
         {page === 3 &&
           <WizardFormThirdPage
             previousPage={this.previousPage}
-            onSubmit={onSubmit}
+            onSubmit={this.nextPage}
+          />}
+          {page === 4 &&
+          <WizardFormPreview
+              previousPage={this.previousPage}
+              onSubmit={onSubmit}
           />}
       </div>
     );

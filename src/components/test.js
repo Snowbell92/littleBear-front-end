@@ -11,14 +11,13 @@ export default class TestComponent extends Component {
 
         return (
             <div>
-
                     {isAuthenticated &&
                     <section id="new-entry">
-                        <div className = "container">
+                        <div className ="container">
                             <div className="row">
                                 <div className="col-sm-8 center-block">
                                     <WizardForm onSubmit={showResults} />
-                                    <Values form="wizard" />
+
                                 </div>
                             </div>
                         </div></section>
