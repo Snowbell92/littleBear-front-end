@@ -42,6 +42,7 @@ class Location extends Component {
     }
 }
 
+
 export {
 	renderField,
 	Label,

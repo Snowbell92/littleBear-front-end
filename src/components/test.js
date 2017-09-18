@@ -17,7 +17,6 @@ export default class TestComponent extends Component {
                             <div className="row">
                                 <div className="col-sm-8 center-block">
                                     <WizardForm onSubmit={showResults} />
-
                                 </div>
                             </div>
                         </div></section>
