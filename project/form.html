@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <meta name="title" content="Little Bear">
+    <meta name="description" content="Little bear is the app for collecting data. Owned by Littlebear">
+    <title>Little Bear | Add new entry</title>
+    <link rel="stylesheet" href="css/style.css" media="screen">
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+</head>
+<body>
+<div id="mount-point"></div>
+<script type="text/jsx">
+    // React Code Goes Here
+</script>
+<!--<section id="masthead">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxs-5 col-xs-3 col-md-6">
+                <a href="dashboard.html">
+                    <img src="assets/images/little-bear.png" class="img-responsive brand" alt="Little Bear"/>
+                </a>
+            </div>
+            <div class="col-xxs-7 col-xs-9 col-md-6 text-right welcome">
+                <h5>Welcome, Jane Doe!</h5>
+                <span class="icon">
+                    <svg role="img" aria-label="Profle-icon">
+                    <use xlink:href="assets/images/icons.svg#profile"></use>
+                </svg>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>-->
+
+<!--<section id="nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="clearfix">
+                    <li>
+                        <a href="#" class="active">
+                            <span>
+                                <svg role="img" aria-label="Add new icon">
+                                <use xlink:href="assets/images/icons.svg#plus"></use>
+                            </svg>
+                            </span>
+                            Add New Entry
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>
+                                <svg role="img" aria-label="Add new icon">
+                                <use xlink:href="assets/images/icons.svg#redo"></use>
+                            </svg>
+                            </span>
+                            Load last entry</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>-->
+
+<!--<section id="new-entry">
+    <div class="stepWizard">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 center-block">
+                    <div class="btn-group btn-group-justified steps" role="group" aria-label="Add new entry step buttons">
+                        <a role="button" class="btn" href="#step1">Personal info</a>
+                        <a role="button" class="btn" disabled="disabled" href="#step2">Location info</a>
+                        <a role="button" class="btn" disabled="disabled" href="#step3">Add Photo &amp; Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 center-block">
+                <form method="post" class="form-horizontal" id="newEntry">
+
+                    <div class="step step1" id="step1">
+                        <div class="panel">
+                            <div class="form-group">
+                                <label for="fullname" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="fullname" class="form-control" id="fullname" placeholder="Type your name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Gender</label>
+                                <div class="col-sm-10">
+                                    <p class="genders">
+                                        <input name="sex" id="male" value="1" type="radio">
+                                        <label for="male" class="icon-label">
+                                            <svg>
+                                                <use xlink:href="assets/images/icons.svg#male"></use>
+                                            </svg>
+                                            Male
+                                        </label>
+                                    </p>
+
+                                    <p class="genders">
+                                        <input name="sex" id="female" value="2" type="radio">
+                                        <label for="female" class="icon-label">
+                                            <svg>
+                                                <use xlink:href="assets/images/icons.svg#female"></use>
+                                            </svg>
+                                            Female
+                                        </label>
+                                    </p>
+
+                                    <p class="genders">
+                                        <input name="sex" id="thirdGender" value="3" type="radio">
+                                        <label for="thirdGender" class="icon-label">
+                                            <svg>
+                                                <use xlink:href="assets/images/icons.svg#unisex"></use>
+                                            </svg>
+                                            Third Gender
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Date of Birth</label>
+                                <div class="col-sm-10">
+                                    <div class="findAge">
+                                        <p class="help-block lead">Do you know your date of birth?</p>
+                                        <p class="help-block">If not, select no and we will calculate the year for you.</p>
+
+                                        <label class="radio-inline">
+                                            <input type="radio" name="dobFlag" value="0"> Yes,I Do
+                                        </label>
+
+                                        <label class="radio-inline">
+                                            <input type="radio" name="dobFlag" value="1"> No, I don't
+                                        </label>
+                                    </div>
+
+
+                                    <div class="dob clearfix">
+                                        <p class="help-block lead">Great! Put your date of birth in the inputs
+                                            below. </p>
+                                        <p class="help-block">it goes like this: DD/MM/YYYY</p>
+
+                                        <div class="input-group day">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-addon">Day</span>
+                                        </div>
+
+                                        <div class="input-group month">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-addon">Month</span>
+                                        </div>
+                                        <div class="input-group year">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-addon">Year</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="age">
+                                        <p class="help-block lead">No Problem! Type your age below. </p>
+                                        <p class="help-block">We will calculate the year for you.</p>
+                                        <input type="text" class="form-control" id="age" name="age"
+                                               placeholder="What is your age?">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <button class="btn btn-success nextBtn" type="button">Next</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="step step2" id="step2">
+                        <div class="panel">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="address">Location</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Address line 1" name="address" id="address">
+                                </div>
+                            </div>
+                            <div class="buttons clearfix">
+                                <button class="btn btn-success nextBtn pull-right" type="button">Next</button>
+                                <button class="btn btn-success prevBtn pull-left" type="button">Prev</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step step3" id="step3">
+                        <div class="panel">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2"> Add photograph</label>
+                                <div class="col-sm-10">
+                                    photograph input
+                                </div>
+                            </div>
+                            <button class="btn btn-success submit pull-right" type="submit" id="entry">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>-->
+
+<!--<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/js.cookie.js"></script>
+<script type="text/javascript" src="js/app.js"></script>-->
+</body>
+</html>
