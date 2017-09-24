@@ -5,9 +5,10 @@ import {
     formValueSelector,
     SubmissionError
 } from "redux-form";
+import {PropTypes} from "react";
 import {connect} from "react-redux";
 import validate from "../middleware/validate";
-import {renderField, Label} from "../components/renderField";
+import {renderField, Label, Houselhold} from "../components/renderField";
 import Icon from '../helpers/svgImports';
 const renderError = ({meta: {touched, error}}) =>
     touched && error
@@ -65,14 +66,7 @@ let WizardFormFirstPage = props => {
                                     <p className="help-block">
                                         start typing the friendly name of your household and you will be shown a list of choices. select the correct one.
                                     </p>
-                                    <Field
-                                        name="family"
-                                        type="text"
-                                        component="input"
-                                        label="family"
-                                        className="form-control"
-                                        placeholder="select your family"
-                                    />
+                                   <Houselhold/>
                                 </div>}
 
                                 {hasLocation == 0 &&
@@ -84,7 +78,7 @@ let WizardFormFirstPage = props => {
                                         Once you have put a friendly name in, continue with filling in the rest of the inputs.
                                     </p>
                                     <Field
-                                        name="family"
+                                        name="houseHold"
                                         type="text"
                                         component="input"
                                         label="family"
@@ -100,7 +94,7 @@ let WizardFormFirstPage = props => {
 
 
 
-                    <Field name="name" type="text" component={renderField} label="name"/>
+                    <Field name="fullName" type="text" component={renderField} label="name"/>
 
                     <div className="form-group">
                         <Label width="sm-2" name="sex" refClass="control-label" />
@@ -281,6 +275,8 @@ let WizardFormFirstPage = props => {
             </div>
         </form>
     );
+
+
 };
 
 WizardFormFirstPage = reduxForm({

@@ -1,8 +1,9 @@
 import React , {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Values } from 'redux-form-website-template';
 import showResults from '../showResults';
 import WizardForm from '../forms/WizardForm';
+import { Values } from "redux-form-website-template";
+
 export default class TestComponent extends Component {
 
     render() {
@@ -17,6 +18,7 @@ export default class TestComponent extends Component {
                             <div className="row">
                                 <div className="col-sm-8 center-block">
                                     <WizardForm onSubmit={showResults} />
+                                    <Values form="wizard" />
                                 </div>
                             </div>
                         </div></section>

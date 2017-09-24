@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import {PropTypes} from "react";
 import { Field, reduxForm } from "redux-form";
 import DropdownList from "react-widgets/lib/DropdownList";
 import "react-widgets/dist/css/react-widgets.css";
+import axios from 'axios';
+import {BASE_URL} from './../middleware/api'
 
 
 const renderField = ({ input, label, type, meta: { touched, error } }) =>
@@ -29,16 +32,124 @@ const Label = (props) => (
 	<label className={`col-${props.width} ${props.refClass}`}>{props.name}</label>
 
 );
-class Location extends Component {
+
+
+class Houselhold extends Component {
+	constructor(){
+		super();
+        this.state = {
+            data: [],
+			key:[],
+        };
+
+        this.getHouses = this.getHouses.bind(this);
+
+	}
+
+	componentDidMount() {
+        this.getHouses()
+	}
+    getHouses = (e) =>  {
+        let token = localStorage.getItem('id_token') || null;
+        const AuthStr = 'Bearer '.concat(token);
+        axios.get(BASE_URL + 'household/list', { headers: { Authorization: AuthStr } }).then((response) =>
+            {
+                console.log(response);
+                let myData = response.data;
+
+                console.log(myData);
+                let list = [];
+                let key =[];
+                for (let i = 0; i < myData._embedded.length; i++) {
+                    let embedded = myData._embedded[i];
+                    list.push(embedded.friendlyName);
+                    key.push(embedded.systemId);
+
+                }
+                let output = key.map(function(obj,index){
+                    let myobj = {};
+                    myobj[list[index]] = obj;
+                    return myobj;
+                });
+
+
+                this.setState({data: list, key: key});
+
+            })
+            .catch((error) => {
+                console.log('error' + error);
+            });
+    }
 
     render()
     {
 
         return(
             <div>
-                <button type="button" className="btn btn-primary">Get your location</button>
+				<Field
+					name="houseHold"
+					type="text"
+					component={renderDropdownList}
+					data={this.state.data}
+					label="family"
+					className="form-control"
+					placeholder="select your family"
+					valueField="value"
+				/>
             </div>
             )
+    }
+}
+
+class HouselholdRole extends Component {
+    constructor(){
+        super();
+        this.state = {
+            data: []
+        };
+
+        this.getRole = this.getRole.bind(this);
+
+    }
+
+    componentDidMount() {
+        this.getRole()
+    }
+    getRole = (e) =>  {
+        let token = localStorage.getItem('id_token') || null;
+        const AuthStr = 'Bearer '.concat(token);
+        axios.get(BASE_URL + 'householdrole/list', { headers: { Authorization: AuthStr } }).then((response) =>
+        {
+			let myData = response.data;
+            let list = []
+            for (let i = 0; i < myData._embedded.length; i++) {
+                let embedded = myData._embedded[i];
+                list.push(embedded.friendlyName);
+            }
+            this.setState({data: list});
+
+        })
+            .catch((error) => {
+                console.log('error' + error);
+            });
+    }
+
+    render()
+    {
+
+        return(
+			<div>
+				<Field
+					name="role"
+					type="text"
+					component={renderDropdownList}
+					data={this.state.data}
+					label="family"
+					className="form-control"
+					placeholder="select your family"
+				/>
+			</div>
+        )
     }
 }
 
@@ -46,7 +157,7 @@ class Location extends Component {
 export {
 	renderField,
 	Label,
-	Location
+	Houselhold
 };
 
 
@@ -148,7 +259,7 @@ export class Camp extends Component {
 				<div className="form-group">
 					<label className="control-label">Camp Name</label>
 					<Field
-						name="campName"
+						name="camp_name"
 						label="Camp Name"
 						component="input"
 						type="text"
@@ -159,7 +270,7 @@ export class Camp extends Component {
 				<div className="form-group">
 					<label className="control-label">Block</label>
 					<Field
-						name="block"
+						name="camp_block"
 						component={renderDropdownList}
 						data={blocks}
 						valueField="block"
@@ -170,7 +281,7 @@ export class Camp extends Component {
 				<div className="form-group">
 					<label className="control-label">Ward</label>
 					<Field
-						name="district"
+						name="camp_ward"
 						component={renderDropdownList}
 						data={districts}
 						valueField="district"
@@ -181,4 +292,40 @@ export class Camp extends Component {
 		);
 	}
 }
+
+export class GetLocation extends Component{
+    constructor(){
+        super();
+        this.getMyLocation = this.getMyLocation.bind(this);
+	}
+
+    getMyLocation = () => {
+        const location = window.navigator && window.navigator.geolocation;
+
+        if (location) {
+            location.getCurrentPosition((position) => {
+                this.props.change('latitude', position.coords.latitude);
+            })
+        }
+	};
+
+	render(){
+    	const {latitude} = this.props;
+        return(
+		<div>
+			<p>Your location is </p>
+			<Field
+				name="latitude"
+				component="input"
+			/>
+			{/*<input name="latitude" value={this.state.latitude} />*/}
+			{/*<input type="text" name="longitude" value={longitude} />*/}
+			<button type="button" onClick={this.getMyLocation.bind(this)}>Get Geolocation</button>
+		</div>
+
+        );
+    }
+}
+
+
 

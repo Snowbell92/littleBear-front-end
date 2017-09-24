@@ -1,7 +1,8 @@
 import React from "react";
 import { Field, reduxForm, FormSection } from "redux-form";
 import validate from "../middleware/validate";
-import { Address, Camp, Location } from "../components/renderField";
+import { Address, Camp, GetLocation } from "../components/renderField";
+import {connect} from "react-redux";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error
@@ -10,7 +11,7 @@ const renderError = ({ meta: { touched, error } }) =>
       </span>
     : false;
 
-const WizardFormSecondPage = props => {
+let WizardFormSecondPage = props => {
   const { handleSubmit, previousPage} = props;
   return (
     <form onSubmit={handleSubmit} className="form-horizontal">
@@ -41,8 +42,8 @@ const WizardFormSecondPage = props => {
                     </FormSection>
 
                   <p className="label-lead">Location Coordinates</p>
-                  <FormSection name="location" component={Location}>
-                      <Location />
+                  <FormSection name="location" component={GetLocation}>
+                      <GetLocation />
                   </FormSection>
               </div>
             </div>
@@ -85,3 +86,7 @@ export default reduxForm({
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
 })(WizardFormSecondPage);
+
+WizardFormSecondPage = connect (props => {
+
+})

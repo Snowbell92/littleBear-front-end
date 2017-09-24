@@ -1,5 +1,7 @@
 import querystring from 'querystring';
 
+import {CALL_API} from './middleware/api';
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -19,6 +21,7 @@ function receiveLogin(user) {
         isFetching: false,
         isAuthenticated: true,
         id_token: user.id_token
+
     }
 }
 
@@ -53,7 +56,7 @@ function receiveLogout() {
 
 export function loginUser(creds) {
 
-    const data = querystring.stringify({_username: creds.username, _password: creds.password})
+    const data = querystring.stringify({_username: creds.username, _password: creds.password});
 
     let config = {
         method: 'POST',
@@ -61,9 +64,12 @@ export function loginUser(creds) {
         body: data
     };
 
+
+
+
     return dispatch => {
         // We dispatch requestLogin to kickoff the call to the API
-        dispatch(requestLogin(creds))
+        dispatch(requestLogin(creds));
 
         return fetch('http://103.198.135.55:8000/api/login_check', config)
             .then(response =>
@@ -73,13 +79,13 @@ export function loginUser(creds) {
                     // If there was a problem, we want to
                     // dispatch the error condition
                     console.log(config);
-                    dispatch(loginError(user.message))
+                    dispatch(loginError(user.message));
                     return Promise.reject(user)
                 } else {
                     // If login was successful, set the token in local storage
-                    localStorage.setItem('id_token', user.id_token)
+                    localStorage.setItem('id_token', user.token);
                     // Dispatch the success action
-                    dispatch(receiveLogin(user))
+                    dispatch(receiveLogin(user));
                 }
             }).catch(err => console.log("Error: ", err))
     }
@@ -102,15 +108,24 @@ export const QUOTE_FAILURE = 'QUOTE_FAILURE'
 // Uses the API middlware to get a quote
 export function fetchQuote() {
     return {
-
+        [CALL_API]: {
+            endpoint: 'household/list',
+            types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+        }
     }
 }
 
 // Same API middlware is used to get a
 // secret quote, but we set authenticated
 // to true so that the auth header is sent
+/*
 export function fetchSecretQuote() {
     return {
+        [CALL_API]: {
+            endpoint: '/household/list',
+            authenticated: true,
+            types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
+        }
     }
 }
-
+*/
