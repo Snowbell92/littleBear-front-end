@@ -54,10 +54,8 @@ class Houselhold extends Component {
         const AuthStr = 'Bearer '.concat(token);
         axios.get(BASE_URL + 'household/list', { headers: { Authorization: AuthStr } }).then((response) =>
             {
-                console.log(response);
                 let myData = response.data;
 
-                console.log(myData);
                 let list = [];
                 let key =[];
                 for (let i = 0; i < myData._embedded.length; i++) {
@@ -81,6 +79,8 @@ class Houselhold extends Component {
             });
     }
 
+
+
     render()
     {
 
@@ -90,11 +90,12 @@ class Houselhold extends Component {
 					name="houseHold"
 					type="text"
 					component={renderDropdownList}
-					data={this.state.data}
+					data={this.state.key}
 					label="family"
 					className="form-control"
 					placeholder="select your family"
 					valueField="value"
+					value={this.state.key}
 				/>
             </div>
             )
@@ -179,13 +180,14 @@ const blocks = [
 	"1","2","3","4","5","6"
 ];
 
-const renderDropdownList = ({ input, data, valueField, textField }) =>
+const renderDropdownList = ({ input, data, valueField, textField, value }) =>
 	<DropdownList
 		{...input}
 		data={data}
 		valueField={valueField}
 		textField={textField}
 		onChange={input.onChange}
+		value={value}
 	/>;
 
 export class Address extends Component {
@@ -297,31 +299,34 @@ export class GetLocation extends Component{
     constructor(){
         super();
         this.getMyLocation = this.getMyLocation.bind(this);
-	}
+    }
 
     getMyLocation = () => {
         const location = window.navigator && window.navigator.geolocation;
 
         if (location) {
             location.getCurrentPosition((position) => {
-                this.props.change('latitude', position.coords.latitude);
+                this.props.onLocationChanged(position.coords);
             })
         }
-	};
+    };
 
-	render(){
-    	const {latitude} = this.props;
+    render(){
         return(
-		<div>
-			<p>Your location is </p>
-			<Field
-				name="latitude"
-				component="input"
-			/>
-			{/*<input name="latitude" value={this.state.latitude} />*/}
-			{/*<input type="text" name="longitude" value={longitude} />*/}
-			<button type="button" onClick={this.getMyLocation.bind(this)}>Get Geolocation</button>
-		</div>
+			<div>
+				<p>Your location is </p>
+				<Field
+					name="latitude"
+					component="input"
+				/>
+				<Field
+					name="longitude"
+					component="input"
+				/>
+                {/*<input name="latitude" value={this.state.latitude} />*/}
+                {/*<input type="text" name="longitude" value={longitude} />*/}
+				<button type="button" onClick={this.getMyLocation.bind(this)}>Get Geolocation</button>
+			</div>
 
         );
     }

@@ -24,6 +24,7 @@ let WizardFormFirstPage = props => {
             <div className="step step-1">
                 <div className="panel">
                     <div className="form-group">
+
                         <Label width="sm-2" name="Household" refClass="control-label" />
                         <div className="col-sm-10">
                             <p className="help-block lead">
@@ -88,6 +89,21 @@ let WizardFormFirstPage = props => {
                                 </div>}
                             </div>
                         </div>
+                    </div>
+
+                    <div className="form-group">
+                        <Label width="sm-2" name="vulnerable" refClass="control-label" />
+                        <label>
+                            <Field name="vulnerable" component="input" type="radio" value="yes" />
+                            {' '}
+                            Yes
+                        </label>
+                        <label>
+                            <Field name="vulnerable" component="input" type="radio" value="no" />
+                            {' '}
+                            No
+                        </label>
+
                     </div>
 
 

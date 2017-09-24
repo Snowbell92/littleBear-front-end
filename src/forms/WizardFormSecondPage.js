@@ -13,7 +13,11 @@ const renderError = ({ meta: { touched, error } }) =>
 
 let WizardFormSecondPage = props => {
   const { handleSubmit, previousPage} = props;
-  return (
+    const onLocationChanged = (loc) => {
+        props.change('location.latitude', loc.latitude);
+        props.change("location.longitude", loc.longitude);
+    }
+    return (
     <form onSubmit={handleSubmit} className="form-horizontal">
       <div className="panel">
         <div className="form-group">
@@ -43,7 +47,7 @@ let WizardFormSecondPage = props => {
 
                   <p className="label-lead">Location Coordinates</p>
                   <FormSection name="location" component={GetLocation}>
-                      <GetLocation />
+                      <GetLocation onLocationChanged={onLocationChanged}  />
                   </FormSection>
               </div>
             </div>
