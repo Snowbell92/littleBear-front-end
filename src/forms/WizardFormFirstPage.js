@@ -15,8 +15,8 @@ import Icon from '../helpers/svgImports';
 const renderError = ({meta: {touched, error}}) =>
     touched && error
         ? <div className="alert alert-danger has-error alert-dismissible">
-            <strong>Please fill in this field.</strong>
-      </div>
+            <strong>{error}</strong>
+            </div>
         : false;
 
 let WizardFormFirstPage = props => {

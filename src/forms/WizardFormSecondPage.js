@@ -90,7 +90,3 @@ export default reduxForm({
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
 })(WizardFormSecondPage);
-
-WizardFormSecondPage = connect (props => {
-
-})

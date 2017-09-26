@@ -368,8 +368,15 @@ export class GetLocation extends Component{
         if (location) {
             location.getCurrentPosition((position) => {
                 this.props.onLocationChanged(position.coords);
-            })
-        }
+            },
+				(positionError) => {
+            	console.log(positionError.message);
+            	this.props.onLocationChanged("0")
+            },{maximumAge:0, timeout: 60000})
+        } else {
+        	console.log();
+        	this.props.onLocationChanged("0")
+		}
     };
 
     render(){
