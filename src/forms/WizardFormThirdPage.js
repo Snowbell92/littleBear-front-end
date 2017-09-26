@@ -24,11 +24,11 @@ const WizardFormThirdPage = props => {
                         <Field name="favoriteColor" component={renderColorSelector} className="form-control"/>
                     </div>
                 </div>
-                <div>
-                    <button type="button" className="previous" onClick={previousPage}>
+                <div className="clearfix">
+                    <button type="button" className="previous pull-left btn btn-default" onClick={previousPage}>
                         Previous
                     </button>
-                    <button type="submit">Next</button>
+                    <button type="submit" className="next pull-right btn btn-primary">Next</button>
                 </div>
             </div>
         </form>

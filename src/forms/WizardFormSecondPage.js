@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm, FormSection } from "redux-form";
 import validate from "../middleware/validate";
-import { Address, Camp, GetLocation } from "../components/renderField";
+import { Address, Camp, GetLocation, Host } from "../components/renderField";
 import {connect} from "react-redux";
 
 const renderError = ({ meta: { touched, error } }) =>
@@ -31,19 +31,19 @@ let WizardFormSecondPage = props => {
             <div className="row">
               <div className="col-sm-12">
                   <p className="label-lead">Own Address</p>
-                     <FormSection name="ownAddress" component={Address}>
+                     <FormSection name="location" component={Address}>
                         <Address />
                     </FormSection>
 
                     <p className="label-lead">Host Address</p>
-                     <FormSection name="hostAddress" component={Address}>
-                        <Address />
+                     <FormSection name="location" component={Host}>
+                        <Host />
                     </FormSection>
 
                     <p className="label-lead">Camp</p>
-                     <FormSection name="camp" component={Camp}>
+                     {/*<FormSection name="camp" component={Camp}>*/}
                        <Camp />
-                    </FormSection>
+                    {/*</FormSection>*/}
 
                   <p className="label-lead">Location Coordinates</p>
                   <FormSection name="location" component={GetLocation}>
@@ -59,7 +59,7 @@ let WizardFormSecondPage = props => {
         <div className="col-sm-10">
           <p className="help-block lead">Who are you in your household?</p>
           <p className="help-block">It can be a husband, wife, children or grandparent. Select the appropriate one. </p>
-          <Field name="houseHold" component="select" className="form-control">
+          <Field name="houseHoldRole" component="select" className="form-control">
               <option />
             <option value="1">None</option>
             <option value="2">Husband</option>
@@ -71,11 +71,11 @@ let WizardFormSecondPage = props => {
 
       </div>
 
-      <div>
-          <button type="button" className="previous" onClick={previousPage}>
+      <div className="clearfix">
+          <button type="button" className="previous pull-left btn btn-default" onClick={previousPage}>
             Previous
           </button>
-          <button type="submit" className="next">
+          <button type="submit" className="next pull-right btn btn-primary">
             Next
           </button>
         </div>

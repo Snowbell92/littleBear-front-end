@@ -2,19 +2,21 @@ import React from "react";
 import {
     Field,
     reduxForm,
+    FormSection,
     formValueSelector,
     SubmissionError
 } from "redux-form";
 import {PropTypes} from "react";
 import {connect} from "react-redux";
 import validate from "../middleware/validate";
-import {renderField, Label, Houselhold} from "../components/renderField";
+import {renderField, Label, Household} from "../components/renderField";
 import Icon from '../helpers/svgImports';
+
 const renderError = ({meta: {touched, error}}) =>
     touched && error
-        ? <span>
-        {error}
-      </span>
+        ? <div className="alert alert-danger has-error alert-dismissible">
+            <strong>Please fill in this field.</strong>
+      </div>
         : false;
 
 let WizardFormFirstPage = props => {
@@ -24,7 +26,6 @@ let WizardFormFirstPage = props => {
             <div className="step step-1">
                 <div className="panel">
                     <div className="form-group">
-
                         <Label width="sm-2" name="Household" refClass="control-label" />
                         <div className="col-sm-10">
                             <p className="help-block lead">
@@ -67,7 +68,7 @@ let WizardFormFirstPage = props => {
                                     <p className="help-block">
                                         start typing the friendly name of your household and you will be shown a list of choices. select the correct one.
                                     </p>
-                                   <Houselhold/>
+                                   <Household/>
                                 </div>}
 
                                 {hasLocation == 0 &&
@@ -78,37 +79,44 @@ let WizardFormFirstPage = props => {
                                     <p className="help-block">
                                         Once you have put a friendly name in, continue with filling in the rest of the inputs.
                                     </p>
+                                    <FormSection name="houseHold">
                                     <Field
-                                        name="houseHold"
+                                        name="friendly_name"
                                         type="text"
                                         component="input"
                                         label="family"
                                         className="form-control"
                                         placeholder="type a friendly name for your family"
                                     />
+                                    </FormSection>
                                 </div>}
                             </div>
                         </div>
                     </div>
-
+                    {hasLocation == 0 &&
                     <div className="form-group">
-                        <Label width="sm-2" name="vulnerable" refClass="control-label" />
-                        <label>
-                            <Field name="vulnerable" component="input" type="radio" value="yes" />
-                            {' '}
-                            Yes
-                        </label>
-                        <label>
-                            <Field name="vulnerable" component="input" type="radio" value="no" />
-                            {' '}
-                            No
-                        </label>
-
-                    </div>
-
-
-
-
+                    <FormSection name="houseHold">
+                            <Label width="sm-2" name="vulnerable" refClass="control-label" />
+                            <div className="col-sm-10">
+                                <p className="help-block lead">
+                                    Is your family vulnerable?
+                                </p>
+                                <p className="help-block">
+                                    select yes or no.
+                                </p>
+                                <label className="radio-inline">
+                                    <Field name="vulnerable" component="input" type="radio" value="1" />
+                                    {' '}
+                                    Yes
+                                </label>
+                                <label className="radio-inline">
+                                    <Field name="vulnerable" component="input" type="radio" value="0" />
+                                    {' '}
+                                    No
+                                </label>
+                        </div>
+                    </FormSection>
+                    </div>}
 
                     <Field name="fullName" type="text" component={renderField} label="name"/>
 
@@ -165,7 +173,7 @@ let WizardFormFirstPage = props => {
 
                     <div className="form-group">
                         <Label width="sm-2" name="Marital Status" refClass="control-label" />
-                        <div className="col-sm-6">
+                        <div className="col-sm-10">
                             <Field
                                 name="maritalStatus"
                                 component="select"
@@ -198,28 +206,28 @@ let WizardFormFirstPage = props => {
 
                                 <label className="radio-inline">
                                     <Field
-                                        name="dobFlag"
+                                        name="ageFlag"
                                         component="input"
                                         type="radio"
-                                        value="0"
+                                        value="1"
                                     />{" "}
                                     Yes,I Do{" "}
                                 </label>
 
                                 <label className="radio-inline">
                                     <Field
-                                        name="dobFlag"
+                                        name="ageFlag"
                                         component="input"
                                         type="radio"
-                                        value="1"
+                                        value="0"
                                     />{" "}
                                     no, I don't{" "}
                                 </label>
                                 <p>
-                                    {" "}<Field name="dobFlag" component={renderError}/>
+                                    {" "}<Field name="ageFlag" component={renderError}/>
                                 </p>
                             </div>
-                            {hasDOB == 1 &&
+                            {hasDOB == 0 &&
                             <div className="age">
                                 <p className="help-block lead">
                                     No Problem! Type your age below.{" "}
@@ -238,7 +246,7 @@ let WizardFormFirstPage = props => {
                             </div>}
 
 
-                            {hasDOB == 0 &&
+                            {hasDOB == 1 &&
                             <div className="dob clearfix">
                                 <p className="help-block lead">
                                     Great! Put your date of birth in the inputs below.{" "}
@@ -284,7 +292,7 @@ let WizardFormFirstPage = props => {
                     </div>
                 </div>
                 <div>
-                    <button type="submit" className="next">
+                    <button type="submit" className="next btn-primary btn pull-right">
                         Next
                     </button>
                 </div>
@@ -307,7 +315,7 @@ const selector = formValueSelector("wizard"); // <-- same as form name
 
 WizardFormFirstPage = connect(state => {
     // can select values individually
-    const hasDOB = selector(state, "dobFlag");
+    const hasDOB = selector(state, "ageFlag");
     const hasLocation = selector(state, "familyFlag")
     return {
         hasLocation,

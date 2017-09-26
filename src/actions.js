@@ -1,6 +1,6 @@
 import querystring from 'querystring';
 
-import {CALL_API} from './middleware/api';
+import {CALL_API, BASE_URL} from './middleware/api';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -71,19 +71,20 @@ export function loginUser(creds) {
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(creds));
 
-        return fetch('http://103.198.135.55:8000/api/login_check', config)
+        return fetch(BASE_URL+'login_check', config)
             .then(response =>
                 response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {
                 if (!response.ok) {
                     // If there was a problem, we want to
                     // dispatch the error condition
-                    console.log(config);
                     dispatch(loginError(user.message));
                     return Promise.reject(user)
                 } else {
                     // If login was successful, set the token in local storage
                     localStorage.setItem('id_token', user.token);
+                    let token = localStorage.getItem('id_token')
+                    console.log(token);
                     // Dispatch the success action
                     dispatch(receiveLogin(user));
                 }

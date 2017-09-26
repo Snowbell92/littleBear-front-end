@@ -1,24 +1,38 @@
-//import { post } from 'axios';
 import axios  from 'axios';
-import {BASE_URL} from './middleware/api'
+import {BASE_URL} from './middleware/api';
+import jwt from 'jsonwebtoken';
 
-//const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-/*export default (async function showResults(values) {
- await sleep(500); // simulate server latency
- window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
- });*/
-let token = localStorage.getItem('id_token') || null;
+const token = localStorage.getItem('id_token');
 const AuthStr = 'Bearer '.concat(token);
+
+let headers ={
+    headers: { 'Content-Type':'application/json','Authorization' : AuthStr }
+};
+
+let isExpired = false;
+let decodedToken=jwt.decode(token, {complete: true});
+let dateNow = new Date();
+
+if(decodedToken.exp < dateNow.getTime())
+    isExpired = true;
+
 export default (async function showResults(values, dispatch) {
-    //await sleep(500); // simulate server latency
-    window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-    axios.post(BASE_URL + 'human/new', { headers: { Authorization: AuthStr } }, values)
+   /* jwt.verify(token, 'shhhhh', { algorithm: 'public.pem'},function(err, decoded) {
+        if (!err) {
+
+    } else {
+        console.log(token);
+        console.log(err)
+    }
+    });*/
+    axios.post(BASE_URL + 'human/new', values, headers)
         .then(function (response) {
+            console.log(isExpired)
             console.log(response);
         })
         .catch(function (error) {
-            console.log(error);
+            console.log(isExpired)
+            console.log(error.response);
         });
 });
 
