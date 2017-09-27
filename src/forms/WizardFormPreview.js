@@ -2,16 +2,17 @@ import React from 'react';
 import {Field, reduxForm, values, getFormValues } from 'redux-form';
 import {connect} from "react-redux";
 import validate from '../middleware/validate';
+import {reset} from 'redux-form';
 
 const FetchValues = connect(state => ({
     values: getFormValues('wizard')(state),
 }))(({ values }) =>
 
     <div>
-        <p className="help-block lead">Check if everything is alright.</p>
+        <h4 className="help-block lead">Check if everything is alright.</h4>
             <div className="row">
                 <div className="col-xs-12">
-                    <h6>Your Name</h6>
+                    <h5>Your Name</h5>
                 </div>
                 <div className="col-xs-12">
                     <p>{values.fullName}</p>
@@ -20,7 +21,7 @@ const FetchValues = connect(state => ({
 
         <div className="row">
             <div className="col-xs-12">
-                <h6>Gender</h6>
+                <h5>Gender</h5>
             </div>
             <div className="col-xs-12">
                 {values.sex == 1 &&
@@ -37,7 +38,7 @@ const FetchValues = connect(state => ({
 
         <div className="row">
             <div className="col-xs-12">
-                <h6>Your Marital Status</h6>
+                <h5>Your Marital Status</h5>
             </div>
             <div className="col-xs-12">
                 <p>{values.maritalStatus}</p>
@@ -46,7 +47,7 @@ const FetchValues = connect(state => ({
 
         <div className="row">
             <div className="col-xs-12">
-                <h6>Are you part of a family?</h6>
+                <h5>Are you part of a family?</h5>
             </div>
             <div className="col-xs-12">
                 {values.familyFlag == 0 &&
@@ -60,7 +61,7 @@ const FetchValues = connect(state => ({
         {values.familyFlag == 0 &&
         <div className="row">
             <div className="col-xs-12">
-                <h6>Friendly name of your family</h6>
+                <h5>Friendly name of your family</h5>
             </div>
             <div className="col-xs-12">
                 <p>{values.houseHold.friendly_name}</p>
@@ -69,7 +70,7 @@ const FetchValues = connect(state => ({
 
         <div className="row">
             <div className="col-xs-12">
-                <h6>Do you know your date of birth?</h6>
+                <h5>Do you know your date of birth?</h5>
             </div>
             <div className="col-xs-12">
                 {values.ageFlag == 0 &&
@@ -85,7 +86,7 @@ const FetchValues = connect(state => ({
             {values.ageFlag == 0 &&
             <div>
                 <div className="col-xs-12">
-                    <h6>Your approximate age</h6>
+                    <h5>Your approximate age</h5>
                 </div>
                 <div className="col-xs-12">
                  <p>{values.age}</p>
@@ -95,7 +96,7 @@ const FetchValues = connect(state => ({
             {values.ageFlag == 1 &&
             <div>
                 <div className="col-xs-12">
-                    <h6>Your date of birth</h6>
+                    <h5>Your date of birth</h5>
                 </div>
                 <div className="col-xs-12">
                     <p>{values.day}/{values.month}/{values.year} </p>
@@ -123,7 +124,7 @@ let WizardFormPreview = (props) => {
         <form onSubmit={handleSubmit} className="form-horizontal">
             <div className="step-3">
                 <FetchValues/>
-                <div>
+                <div className="clearfix">
                     <button type="button" className="previous pull-left btn btn-default" onClick={previousPage}>
                         Previous
                     </button>

@@ -95,16 +95,15 @@ export function loginUser(creds) {
 // Logs the user out
 export function logoutUser() {
     return dispatch => {
-        dispatch(requestLogout())
-        localStorage.removeItem('id_token')
-        localStorage.removeItem('access_token')
+        dispatch(requestLogout());
+        localStorage.removeItem('id_token');
         dispatch(receiveLogout())
     }
 }
 
-export const QUOTE_REQUEST = 'QUOTE_REQUEST'
-export const QUOTE_SUCCESS = 'QUOTE_SUCCESS'
-export const QUOTE_FAILURE = 'QUOTE_FAILURE'
+export const QUOTE_REQUEST = 'QUOTE_REQUEST';
+export const QUOTE_SUCCESS = 'QUOTE_SUCCESS';
+export const QUOTE_FAILURE = 'QUOTE_FAILURE';
 
 // Uses the API middlware to get a quote
 export function fetchQuote() {

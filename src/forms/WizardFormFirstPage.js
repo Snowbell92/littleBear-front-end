@@ -15,8 +15,8 @@ import Icon from '../helpers/svgImports';
 const renderError = ({meta: {touched, error}}) =>
     touched && error
         ? <div className="alert alert-danger has-error alert-dismissible">
-            <strong>Please fill in this field.</strong>
-      </div>
+            <strong>{error}</strong>
+            </div>
         : false;
 
 let WizardFormFirstPage = props => {
@@ -119,6 +119,8 @@ let WizardFormFirstPage = props => {
                     </div>}
 
                     <Field name="fullName" type="text" component={renderField} label="name"/>
+
+                    <Field name="govRegisteredNumber" type="text" component={renderField} label="Govt registration number"/>
 
                     <div className="form-group">
                         <Label width="sm-2" name="sex" refClass="control-label" />
