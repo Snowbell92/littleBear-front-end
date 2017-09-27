@@ -120,6 +120,8 @@ let WizardFormFirstPage = props => {
 
                     <Field name="fullName" type="text" component={renderField} label="name"/>
 
+                    <Field name="govRegisteredNumber" type="text" component={renderField} label="Govt registration number"/>
+
                     <div className="form-group">
                         <Label width="sm-2" name="sex" refClass="control-label" />
 

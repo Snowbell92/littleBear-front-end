@@ -6,9 +6,10 @@ import {connect} from "react-redux";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error
-    ? <span>
+    ? <div className="alert alert-danger has-error alert-dismissible">
+          <strong>
         {error}
-      </span>
+          </strong></div>
     : false;
 
 let WizardFormSecondPage = props => {

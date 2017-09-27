@@ -1,7 +1,7 @@
 const validate = values => {
   const errors = {};
-  if (!values.name) {
-    errors.name = 'You must provide your name!';
+  if (!values.fullName) {
+    errors.fullName = 'You must provide your name!';
   }
  /* if (!values.email) {
     errors.email = 'Required';

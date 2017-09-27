@@ -21,9 +21,10 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 			/>
 			{touched &&
 				error &&
-				<span className="has-error alert alert-danger">
+			<div className="alert alert-danger has-error alert-dismissible">
+				<strong>
 					{error}
-				</span>}
+				</strong></div>}
 		</div>
 	</div>;
 
@@ -165,11 +166,74 @@ const upazillas = [
 ];
 
 const districts = [
-    "1","2","3","4","5","6"
+    "DHAKA",
+    "BANDARBAN",
+    "BOGRA",
+    "BAGERHAT",
+    "FARIDPUR",
+    "BRAHMANBARIA",
+    "CHAPAINABABGANJ",
+    "CHUADANGA",
+    "GAZIPUR",
+    "CHANDPUR",
+    "JOYPURHAT",
+    "JHENAIDAH",
+    "GOPALGANJ",
+    "CHITTAGONG",
+    "PABNA",
+    "JESSORE",
+    "JAMALPUR",
+    "COMILLA",
+    "NAOGAON",
+    "KHULNA",
+    "KISHOREGONJ",
+    "COX`S BAZAR",
+	"NATORE",
+	"KUSHTIA",
+	"MADARIPUR",
+	"FENI",
+	"RAJSHAHI",
+	"MAGURA",
+	"MANIKGANJ",
+	"KHAGRACHHARI",
+	"SIRAJGANJ",
+	"MEHERPUR",
+	"MUNSHIGANJ",
+	"LAKSHMIPUR",
+	"NARAIL",
+	"MYMENSINGH",
+	"NOAKHALI",
+	"SATKHIRA",
+	"NARAYANGANJ",
+	"RANGAMATI",
+	"DINAJPUR",
+	"NETRAKONA",
+	"GAIBANDHA",
+	"NARSINGDI",
+	"KURIGRAM",
+	"ABIGANJ",
+	"RAJBARI",
+	"BARGUNA",
+	"LALMONIRHAT",
+	"MAULVIBAZAR",
+	"SHARIATPUR",
+	"BARISAL",
+	"NILPHAMARI",
+	"SUNAMGANJ",
+	"SHERPUR",
+	"BHOLA",
+	"PANCHAGARH",
+	"SYLHET",
+	"TANGAIL",
+	"JHALOKATI",
+	"RANGPUR",
+	"PATUAKHALI",
+	"THAKURGAON",
+	"PIROJPUR",
 ];
 
 const divisions = [
-    "Dhaka", "Barisal","Khulna","Chittagong","Sylhet","Rajshahi"
+    "Dhaka", "Barisal","Khulna","Chittagong","Sylhet","Rajshahi", "Rangpur"
 ];
 
 const blocks = [
