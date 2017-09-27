@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {PropTypes} from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm,FormSection } from "redux-form";
 import DropdownList from "react-widgets/lib/DropdownList";
 import "react-widgets/dist/css/react-widgets.css";
 import axios from 'axios';
@@ -80,8 +80,9 @@ class Household extends Component {
 
         return(
             <div>
+				<FormSection name="houseHold">
 				<Field
-					name="houseHold"
+					name="id"
 					type="text"
 					component={renderDropdownList}
 					data={this.state.key}
@@ -91,7 +92,7 @@ class Household extends Component {
 					valueField="value"
 					value={this.state.key}
 				/>
-
+				</FormSection>
 
 
             </div>
