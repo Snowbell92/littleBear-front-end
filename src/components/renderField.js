@@ -51,7 +51,7 @@ class Household extends Component {
         this.getHouses()
 	}
     getHouses = (e) =>  {
-        let token = localStorage.getItem('id_token') || null;
+        let token = localStorage.getItem('idToken') || null;
         const AuthStr = 'Bearer '.concat(token);
         axios.get(BASE_URL + 'household/list', { headers: { Authorization: AuthStr } }).then((response) =>
             {
@@ -114,7 +114,7 @@ class HouselholdRole extends Component {
         this.getRole()
     }
     getRole = (e) =>  {
-        let token = localStorage.getItem('id_token') || null;
+        let token = localStorage.getItem('idToken') || null;
         const AuthStr = 'Bearer '.concat(token);
         axios.get(BASE_URL + 'householdrole/list', { headers: { Authorization: AuthStr } }).then((response) =>
         {
@@ -187,7 +187,7 @@ const districts = [
     "NAOGAON",
     "KHULNA",
     "KISHOREGONJ",
-    "COX`S BAZAR",
+    "COXS BAZAR",
 	"NATORE",
 	"KUSHTIA",
 	"MADARIPUR",

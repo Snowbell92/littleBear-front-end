@@ -5,7 +5,7 @@ import {
 } from './actions'
 function auth(state = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem('id_token') ? true : false
+    isAuthenticated: localStorage.getItem('idToken') ? true : false
 }, action) {
     switch (action.type) {
         case LOGIN_REQUEST:

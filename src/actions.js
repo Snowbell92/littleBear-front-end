@@ -82,9 +82,9 @@ export function loginUser(creds) {
                     return Promise.reject(user)
                 } else {
                     // If login was successful, set the token in local storage
-                    localStorage.setItem('id_token', user.token);
-                    let token = localStorage.getItem('id_token')
-                    console.log(token);
+                    localStorage.setItem('idToken', user.token);
+                    let token = localStorage.getItem('idToken')
+                    //console.log(token);
                     // Dispatch the success action
                     dispatch(receiveLogin(user));
                 }
@@ -96,7 +96,7 @@ export function loginUser(creds) {
 export function logoutUser() {
     return dispatch => {
         dispatch(requestLogout());
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('idToken');
         dispatch(receiveLogout())
     }
 }
