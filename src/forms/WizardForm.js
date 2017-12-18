@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
+import {reduxForm} from 'redux-form';
 import WizardFormFirstPage from './WizardFormFirstPage';
 import WizardFormSecondPage from './WizardFormSecondPage';
 import WizardFormThirdPage from './WizardFormThirdPage';
 import WizardFormPreview from './WizardFormPreview';
+import {saveData} from '../actions';
 
 class WizardForm extends Component {
   constructor(props) {
@@ -23,8 +25,9 @@ class WizardForm extends Component {
     this.setState({ page: this.state.page - 1 });
   }
 
-  onSubmit(values) {
-        console.log(values);
+  onSubmit(values, dispatch) {
+        const message = "yes! it happened!";
+        return dispatch(saveData(values,message));
         // Call the action creator which is responsible for saving data here.
   }
 
@@ -47,7 +50,7 @@ class WizardForm extends Component {
           {page === 3 &&
           <WizardFormPreview
               previousPage={this.previousPage}
-              onSubmit={onSubmit}
+              onSubmit={this.onSubmit}
           />}
       </div>
     );
@@ -57,5 +60,16 @@ class WizardForm extends Component {
 WizardForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+WizardForm = reduxForm ({
+  form: 'wizard',
+  initialValues: {
+    location: {
+      latitude: "0.0",
+      longitude: "0.0"
+    }
+  }
+})(WizardForm)
+
 
 export default WizardForm;

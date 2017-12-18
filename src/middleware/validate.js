@@ -3,11 +3,12 @@ const validate = values => {
   if (!values.fullName) {
     errors.fullName = 'You must provide your name!';
   }
- /* if (!values.email) {
-    errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
+ /* if (!values.dob) {
+    errors.dob = 'Please write your date of birth';
   }*/
+  if (!/^(\d{2})-(\d{2})-(\d{4})$/i.test(values.dob)) {
+    errors.dob = 'The formatting of the date is not valid. The date should look like this: 05-01-1971';
+  }
   if (!values.sex) {
     errors.sex = 'You must provide your gender!';
   }

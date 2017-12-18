@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field, reduxForm, values, getFormValues } from 'redux-form';
+import {Field, reduxForm, getFormValues } from 'redux-form';
 import {connect} from "react-redux";
 import validate from '../middleware/validate';
 import {reset} from 'redux-form';
@@ -128,7 +128,7 @@ let WizardFormPreview = (props) => {
                     <button type="button" className="previous pull-left btn btn-default" onClick={previousPage}>
                         Previous
                     </button>
-                    <button type="submit" className="next pull-right btn btn-primary" disabled={pristine || submitting}>Submit</button>
+                    <button type="submit" className="next pull-right btn btn-primary" disabled={pristine || submitting}>Proceeed to Upload Picture</button>
                 </div>
             </div>
         </form>

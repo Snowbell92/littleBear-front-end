@@ -21,6 +21,20 @@
   src: url("../assets/fonts/ubuntu-regular.woff") format("woff"), url("../assets/fonts/ubuntu-regular.woff2") format("woff2");
   unicode-range: U+0020-00FF; }
 
+@font-face {
+  font-family: "Noto Sans Bangla Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../assets/fonts/NotoSansBengali-Bold.eot?") format("eot"), url("../assets/fonts/NotoSansBengali-Bold.woff") format("woff"), url("../assets/fonts/NotoSansBengali-Bold.woff2") format("woff2"), url("../assets/fonts/NotoSansBengali-Bold.ttf") format("truetype");
+  unicode-range: U+0980-09FF; }
+
+@font-face {
+  font-family: "Noto Sans Bangla";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/NotoSansBengali-Regular.eot?") format("eot"), url("../assets/fonts/NotoSansBengali-Regular.woff") format("woff"), url("../assets/fonts/NotoSansBengali-Regular.woff2") format("woff2"), url("../assets/fonts/NotoSansBengali-Regular.ttf") format("truetype");
+  unicode-range: U+0980-09FF; }
+
 /*overrides*/
 /*colors*/
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -218,7 +232,7 @@ html {
   -webkit-tap-highlight-color: transparent; }
 
 body {
-  font-family: "Roboto", Arial, helvetica, sans-serif;
+  font-family: "Roboto", "Noto Sans Bangla", Arial, helvetica, sans-serif;
   font-size: 12px;
   line-height: 1.42857;
   color: #333333;
@@ -301,7 +315,7 @@ hr {
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Ubuntu", Arial, Helvetica, sans-serif;
+  font-family: "Ubuntu", "Noto Sans Bangla Bold", Arial, Helvetica, sans-serif;
   font-weight: 400;
   line-height: 1.1;
   color: inherit; }
@@ -3036,10 +3050,11 @@ html {
   height: auto; }
 
 body {
-  height: 100%; }
+  height: 100%;
+  font-family: "Roboto", "Noto Sans Bangla", Arial, helvetica, sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Ubuntu", Arial, Helvetica, sans-serif;
+  font-family: "Ubuntu", "Noto Sans Bangla Bold", Arial, Helvetica, sans-serif;
   font-weight: 400; }
 
 /*bootstrap overrides*/
@@ -3078,9 +3093,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #nav {
   background: #ECE9E6;
-  /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);
-  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #FFFFFF, #ECE9E6);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 15px 0;
@@ -3101,7 +3114,7 @@ h1, h2, h3, h4, h5, h6 {
         -moz-border-radius: 4px;
         border-radius: 4px;
         padding: 10px;
-        font-family: "Ubuntu", Arial, Helvetica, sans-serif;
+        font-family: "Ubuntu", "Noto Sans Bangla Bold", Arial, Helvetica, sans-serif;
         font-size: 12px;
         text-align: center;
         display: inline-block;
@@ -3231,7 +3244,7 @@ h1, h2, h3, h4, h5, h6 {
     border-right: 1px solid #e6e6e6;
     padding: 10px;
     font-weight: bold;
-    font-family: "Ubuntu", Arial, Helvetica, sans-serif;
+    font-family: "Ubuntu", "Noto Sans Bangla Bold", Arial, Helvetica, sans-serif;
     font-size: 12px;
     letter-spacing: 2px;
     -webkit-transition: all 0.15s ease-in-out;

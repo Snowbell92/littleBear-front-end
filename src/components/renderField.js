@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import {PropTypes} from "react";
-import { Field, reduxForm,FormSection } from "redux-form";
+import React, { Component, PropTypes } from "react";
+import { Field, reduxForm,FormSection, change } from "redux-form";
 import DropdownList from "react-widgets/lib/DropdownList";
 import "react-widgets/dist/css/react-widgets.css";
 import axios from 'axios';
@@ -30,7 +29,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 
 
 const Label = (props) => (
-	<label className={`col-${props.width} ${props.refClass}`}>{props.name}</label>
+	<label className={`col-${props.width} ${props.refClass}`}>{props.name} ({props.banglaName})</label>
 
 );
 
@@ -71,7 +70,7 @@ class Household extends Component {
             .catch((error) => {
                 console.log('error' + error);
             });
-    }
+    };
 
 
 
@@ -422,14 +421,13 @@ export class Camp extends Component {
 }
 
 export class GetLocation extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.getMyLocation = this.getMyLocation.bind(this);
     }
 
     getMyLocation = () => {
         const location = window.navigator && window.navigator.geolocation;
-
         if (location) {
             location.getCurrentPosition((position) => {
                 this.props.onLocationChanged(position.coords);
@@ -443,7 +441,6 @@ export class GetLocation extends Component{
         	this.props.onLocationChanged("0")
 		}
     };
-
     render(){
         return(
 			<div>
@@ -457,7 +454,7 @@ export class GetLocation extends Component{
 					name="longitude"
 					component="input"
 					className="form-control"
-				/>
+				/><br/>
 				<button type="button" className="btn btn-success" onClick={this.getMyLocation.bind(this)}>Get Geolocation</button>
 			</div>
 

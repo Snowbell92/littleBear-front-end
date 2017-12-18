@@ -1,13 +1,13 @@
 import React , {Component} from 'react';
 import PropTypes from 'prop-types';
-import showResults from '../showResults';
+import onSubmit from '../forms/WizardForm';
 import WizardForm from '../forms/WizardForm';
 import { Values } from "redux-form-website-template";
 
 export default class TestComponent extends Component {
 
     render() {
-        const {isAuthenticated} = this.props
+        const {isAuthenticated} = this.props;
 
 
         return (
@@ -17,7 +17,7 @@ export default class TestComponent extends Component {
                         <div className ="container">
                             <div className="row">
                                 <div className="col-sm-8 center-block">
-                                    <WizardForm onSubmit={showResults} />
+                                    <WizardForm onSubmit={onSubmit} />
                                     <Values form="wizard" />
                                 </div>
                             </div>
