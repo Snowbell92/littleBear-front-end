@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import { post } from 'axios';
 import {saveData} from '../actions';
 export const FileUpload = (props) => {
-    const { handleSubmit, isCompleted } = props;
+    const { handleSubmit } = props;
     const onFormSubmit = (data) => {
         let formData = new FormData();
-        let humanID = humanID;
         formData.append('name', data.name);
         formData.append('profile_pic', data.profile_pic[0])
         const config = {

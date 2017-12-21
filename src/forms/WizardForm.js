@@ -4,9 +4,13 @@ import {connect} from "react-redux";
 import {reduxForm} from 'redux-form';
 import WizardFormFirstPage from './WizardFormFirstPage';
 import WizardFormSecondPage from './WizardFormSecondPage';
-import WizardFormThirdPage from './WizardFormThirdPage';
 import WizardFormPreview from './WizardFormPreview';
-import {saveData} from '../actions';
+import WizardFromThirdPage from './WizardFormThirdPage'
+import {
+    isSubmitting,
+    hasSubmitSucceeded,
+    hasSubmitFailed
+} from 'redux-form'
 
 class WizardForm extends Component {
   constructor(props) {
@@ -25,15 +29,10 @@ class WizardForm extends Component {
     this.setState({ page: this.state.page - 1 });
   }
 
-  onSubmit(values, dispatch) {
-        const message = "yes! it happened!";
-        return dispatch(saveData(values,message));
-        // Call the action creator which is responsible for saving data here.
-  }
-
   render() {
     const { onSubmit } = this.props;
-    const { page } = this.state;
+    const { page, submitSucceeded } = this.state;
+      console.log('asd', page, submitSucceeded);
     return (
       <div>
         {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} />}
@@ -50,8 +49,18 @@ class WizardForm extends Component {
           {page === 3 &&
           <WizardFormPreview
               previousPage={this.previousPage}
-              onSubmit={this.onSubmit}
+              onSubmit={values => {
+                  onSubmit(values, () => {
+                      this.setState({
+                          submitSucceeded: true
+                      })
+                      this.nextPage()
+                  });
+              }}
           />}
+          {submitSucceeded && page ===  4 &&
+          <WizardFromThirdPage onSubmit={onSubmit}/>
+          }
       </div>
     );
   }
@@ -71,5 +80,12 @@ WizardForm = reduxForm ({
   }
 })(WizardForm)
 
+WizardForm = connect(
+    state => ({
+        submitting: isSubmitting('wizard')(state),
+        submitSucceeded: hasSubmitSucceeded('wizard')(state),
+        submitFailed: hasSubmitFailed('wizard')(state)
+    })
+)(WizardForm)
 
 export default WizardForm;

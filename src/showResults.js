@@ -1,8 +1,8 @@
-/*import axios  from 'axios';
+import axios  from 'axios';
 import {BASE_URL} from './middleware/api';
 import {reset} from 'redux-form';
 
-let showResults = (values, dispatch) =>{
+let showResults = (values, dispatch, callback) =>{
 
     let token =localStorage.getItem('idToken');
     const AuthStr = 'Bearer '.concat(token);
@@ -15,12 +15,19 @@ let showResults = (values, dispatch) =>{
         .then(function (response) {
             console.log(response);
             alert("Your submit was successful");
-            dispatch(reset('wizard'));
-        }).catch(function (error) {
+            localStorage.setItem('humanID', response.data.humanId);
+            let human = localStorage.getItem('humanID');
+            console.log(human);
+        }).then(function () {
+        dispatch(reset('wizard'));
+        if (callback){
+            callback()
+        }
+    }).catch(function (error) {
         console.log(error.response);
         alert(error.response.statusText);
     });
 }
 
-export default showResults;*/
+export default showResults;
 

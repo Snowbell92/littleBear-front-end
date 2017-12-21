@@ -127,7 +127,7 @@ function submitSuccess(humanID){
 
 }
 
-export function saveData(values){
+export function saveData(values, callback){
     let token = localStorage.getItem('idToken');
     const AuthStr = 'Bearer '.concat(token);
     let headers ={
@@ -145,6 +145,9 @@ export function saveData(values){
                 let humanID = response.data.humanId;
                 dispatch(submitSuccess(humanID));
                 //dispatch(reset('wizard'));
+                if (callback) {
+                    callback();
+                }
             }).catch(function (error) {
                 console.log(values);
             console.log(error.response);
