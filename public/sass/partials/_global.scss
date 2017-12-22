@@ -4,6 +4,7 @@ html{
 
 body{
   height: 100%;
+  font-family: $font-family-sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -51,8 +52,8 @@ h1,h2,h3,h4,h5,h6{
 }
 
 #nav{
-  background: #ECE9E6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: #ECE9E6;
+  background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);
   background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 15px 0;
   border-bottom: 1px solid $border-color-gray;
@@ -115,4 +116,22 @@ h1,h2,h3,h4,h5,h6{
   background: $border-color-gray;
   margin: 20px auto;
   padding: 30px ;
+}
+
+/*navbar*/
+
+.navbar{
+
+  .navbar-brand{
+    display: inline-block;
+
+    img{
+      width: auto;
+      height:55px;
+    }
+  }
+
+  .logout-user{
+    margin-top: 15px;
+  }
 }

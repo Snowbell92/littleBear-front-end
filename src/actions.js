@@ -1,6 +1,8 @@
 import querystring from 'querystring';
+import axios  from 'axios';
+import {reset} from 'redux-form';
 
-import {CALL_API} from './middleware/api';
+import {CALL_API, BASE_URL} from './middleware/api';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -65,25 +67,24 @@ export function loginUser(creds) {
     };
 
 
-
-
     return dispatch => {
         // We dispatch requestLogin to kickoff the call to the API
         dispatch(requestLogin(creds));
 
-        return fetch('http://103.198.135.55:8000/api/login_check', config)
+        return fetch(BASE_URL+'login_check', config)
             .then(response =>
                 response.json().then(user => ({ user, response }))
             ).then(({ user, response }) =>  {
                 if (!response.ok) {
                     // If there was a problem, we want to
                     // dispatch the error condition
-                    console.log(config);
                     dispatch(loginError(user.message));
                     return Promise.reject(user)
                 } else {
                     // If login was successful, set the token in local storage
-                    localStorage.setItem('id_token', user.token);
+                    localStorage.setItem('idToken', user.token);
+                    let token = localStorage.getItem('idToken');
+                    //console.log(token);
                     // Dispatch the success action
                     dispatch(receiveLogin(user));
                 }
@@ -94,16 +95,15 @@ export function loginUser(creds) {
 // Logs the user out
 export function logoutUser() {
     return dispatch => {
-        dispatch(requestLogout())
-        localStorage.removeItem('id_token')
-        localStorage.removeItem('access_token')
+        dispatch(requestLogout());
+        localStorage.removeItem('idToken');
         dispatch(receiveLogout())
     }
 }
 
-export const QUOTE_REQUEST = 'QUOTE_REQUEST'
-export const QUOTE_SUCCESS = 'QUOTE_SUCCESS'
-export const QUOTE_FAILURE = 'QUOTE_FAILURE'
+export const QUOTE_REQUEST = 'QUOTE_REQUEST';
+export const QUOTE_SUCCESS = 'QUOTE_SUCCESS';
+export const QUOTE_FAILURE = 'QUOTE_FAILURE';
 
 // Uses the API middlware to get a quote
 export function fetchQuote() {
@@ -115,17 +115,44 @@ export function fetchQuote() {
     }
 }
 
-// Same API middlware is used to get a
-// secret quote, but we set authenticated
-// to true so that the auth header is sent
-/*
-export function fetchSecretQuote() {
-    return {
-        [CALL_API]: {
-            endpoint: '/household/list',
-            authenticated: true,
-            types: [QUOTE_REQUEST, QUOTE_SUCCESS, QUOTE_FAILURE]
-        }
+export const SUBMIT_SUCCESS = 'SUBMIT_SUCCESS';
+
+function submitSuccess(humanID){
+    console.log('it happened!');
+    return{
+        type : SUBMIT_SUCCESS,
+        isCompleted: true,
+        payload: humanID
     }
+
 }
-*/
+
+export function saveData(values, callback){
+    let token = localStorage.getItem('idToken');
+    const AuthStr = 'Bearer '.concat(token);
+    let headers ={
+        headers: { 'Content-Type':'application/json','Authorization' : AuthStr }
+    };
+
+
+    return dispatch => {
+
+        axios.post(BASE_URL + 'human/new', values, headers)
+            .then(function (response) {
+                console.log(values);
+                console.log(response);
+                alert("Your submit was successful");
+                let humanID = response.data.humanId;
+                dispatch(submitSuccess(humanID));
+                //dispatch(reset('wizard'));
+                if (callback) {
+                    callback();
+                }
+            }).catch(function (error) {
+                console.log(values);
+            console.log(error.response);
+            alert(error.response.statusText);
+        });
+    };
+
+}

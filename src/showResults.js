@@ -1,24 +1,32 @@
-//import { post } from 'axios';
 import axios  from 'axios';
-import {BASE_URL} from './middleware/api'
+import {BASE_URL} from './middleware/api';
+import {reset} from 'redux-form';
 
-//const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+let showResults = (values, dispatch, callback) =>{
 
-/*export default (async function showResults(values) {
- await sleep(500); // simulate server latency
- window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
- });*/
-let token = localStorage.getItem('id_token') || null;
-const AuthStr = 'Bearer '.concat(token);
-export default (async function showResults(values, dispatch) {
-    //await sleep(500); // simulate server latency
-    window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-    axios.post(BASE_URL + 'human/new', { headers: { Authorization: AuthStr } }, values)
+    let token =localStorage.getItem('idToken');
+    const AuthStr = 'Bearer '.concat(token);
+
+    let headers ={
+        headers: { 'Content-Type':'application/json','Authorization' : AuthStr }
+    };
+
+    axios.post(BASE_URL + 'human/new', values, headers)
         .then(function (response) {
             console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-});
+            alert("Your submit was successful");
+            localStorage.setItem('humanID', response.data.humanId);
+            let human = localStorage.getItem('humanID');
+        }).then(function () {
+        dispatch(reset('wizard'));
+        if (callback){
+            callback()
+        }
+    }).catch(function (error) {
+        console.log(error.response);
+        alert(error.response.statusText);
+    });
+}
+
+export default showResults;
 

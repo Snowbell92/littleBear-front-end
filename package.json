@@ -5,8 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.16.2",
+    "jsonwebtoken": "^8.0.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-dropzone": "^4.2.3",
     "react-geolocated": "^2.0.0",
     "react-geolocation": "^1.0.3",
     "react-redux": "^5.0.5",
@@ -17,13 +19,16 @@
     "redux-form-website-template": "^0.0.45",
     "redux-thunk": "^2.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "node-sass": "^4.5.3"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "sass": "node-sass -w sass/ -o css/"
+    "build-sass": "node-sass --include-path scss public/sass/style.scss public/css/style.css",
+    "watch-scss": "node-sass -w public/sass/ -o public/css/"
   },
   "author": "samia",
   "license": "UNLICENSED",
@@ -34,5 +39,5 @@
   "bugs": {
     "url": "https://github.com/Snowbell92/littleBear-front-end/issues"
   },
-  "homepage": "https://github.com/Snowbell92/littleBear-front-end#readme"
+  "homepage": "."
 }

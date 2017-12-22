@@ -1,42 +1,53 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 import validate from '../middleware/validate';
-const colors = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet'];
+import { post } from 'axios';
+import {BASE_URL} from '../middleware/api';
+import {connect} from "react-redux";
+import WizardForm from './WizardForm';
 
-const renderColorSelector = ({input, meta: {touched, error}}) => (
-    <div>
-        <select {...input}>
-            <option value="">Select a color...</option>
-            {colors.map(val => <option value={val} key={val}>{val}</option>)}
-        </select>
-        {touched && error && <span>{error}</span>}
-    </div>
-);
+let WizardFormPhoto = (props) => {
+    const {handleSubmit, pristine, previousPage, submitting, reset} = props;
+    const onFormSubmit = (data, callback) => {
+        let humanID = localStorage.getItem('humanID');
+        let token =localStorage.getItem('idToken');
+        const AuthStr = 'Bearer '.concat(token);
+        let formData = new FormData();
+        formData.append('humanId', humanID);
+        formData.append('photo', data.profile_pic[0]);
+        const config = {
+            headers: {'content-type': 'multipart/form-data', 'Authorization' : AuthStr}
+        };
+        const url = BASE_URL + 'human/upload';
 
-const WizardFormThirdPage = props => {
-    const {handleSubmit, pristine, previousPage, submitting} = props;
+        post(url, formData, config)
+            .then(function (response) {
+                alert(response.data.message);
+                reset();
+            }).catch(function (error) {
+                console.log(error);
+            });
+    };
     return (
-        <form onSubmit={handleSubmit} className="form-horizontal">
+        <form onSubmit={handleSubmit(onFormSubmit.bind(this))} className="form-horizontal">
             <div className="step-3">
                 <div className="form-group">
-                    <label className="col-sm-2 control-label">Photograph</label>
+                    <label className="col-sm-2 control-label">Add Photo</label>
                     <div className="col-sm-10">
-                        <Field name="favoriteColor" component={renderColorSelector} className="form-control"/>
+                        <Field name="profile_pic" component="input" type="file"/>
                     </div>
                 </div>
-                <div>
-                    <button type="button" className="previous" onClick={previousPage}>
-                        Previous
-                    </button>
-                    <button type="submit">Next</button>
+                <div className="clearfix">
+                    <button type="submit" className="next pull-right btn btn-primary">Submit</button>
                 </div>
             </div>
         </form>
     );
 };
+
+
 export default reduxForm({
     form: 'wizard', //                 <------ same form name
-    destroyOnUnmount: false, //        <------ preserve form data
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
     validate,
-})(WizardFormThirdPage);
+})(WizardFormPhoto);

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 import {
-    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,QUOTE_REQUEST,QUOTE_SUCCESS,QUOTE_FAILURE
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,QUOTE_REQUEST,QUOTE_SUCCESS,QUOTE_FAILURE, SUBMIT_SUCCESS
 } from './actions'
 function auth(state = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem('id_token') ? true : false
+    isAuthenticated: localStorage.getItem('idToken') ? true : false
 }, action) {
     switch (action.type) {
         case LOGIN_REQUEST:
@@ -62,11 +62,26 @@ function quotes(state = {
     }
 }
 
+function saved (state = {
+    isSubmitted : false
+}, action){
+    switch (action.type){
+        case SUBMIT_SUCCESS:
+            return Object.assign({},state, {
+                isSubmitted: true
+            })
+
+        default:
+            return state
+    }
+}
+
 // We combine the reducers here so that they
 // can be left split apart above
 const reducer = combineReducers({
     quotes,
     auth,
+    saved,
     form: reduxFormReducer, // mounted under "form"
 });
 

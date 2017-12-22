@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
 import PropTypes from 'prop-types';
+import {saveData} from '../actions';
 import showResults from '../showResults';
 import WizardForm from '../forms/WizardForm';
 import { Values } from "redux-form-website-template";
@@ -7,7 +8,7 @@ import { Values } from "redux-form-website-template";
 export default class TestComponent extends Component {
 
     render() {
-        const {isAuthenticated} = this.props
+        const {isAuthenticated} = this.props;
 
 
         return (

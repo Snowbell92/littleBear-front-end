@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import {PropTypes} from "react";
-import { Field, reduxForm } from "redux-form";
+import React, { Component, PropTypes } from "react";
+import { Field, reduxForm,FormSection, change } from "redux-form";
 import DropdownList from "react-widgets/lib/DropdownList";
 import "react-widgets/dist/css/react-widgets.css";
 import axios from 'axios';
@@ -21,20 +20,21 @@ const renderField = ({ input, label, type, meta: { touched, error } }) =>
 			/>
 			{touched &&
 				error &&
-				<span>
+			<div className="alert alert-danger has-error alert-dismissible">
+				<strong>
 					{error}
-				</span>}
+				</strong></div>}
 		</div>
 	</div>;
 
 
 const Label = (props) => (
-	<label className={`col-${props.width} ${props.refClass}`}>{props.name}</label>
+	<label className={`col-${props.width} ${props.refClass}`}>{props.name} ({props.banglaName})</label>
 
 );
 
 
-class Houselhold extends Component {
+class Household extends Component {
 	constructor(){
 		super();
         this.state = {
@@ -50,28 +50,19 @@ class Houselhold extends Component {
         this.getHouses()
 	}
     getHouses = (e) =>  {
-        let token = localStorage.getItem('id_token') || null;
+        let token = localStorage.getItem('idToken') || null;
         const AuthStr = 'Bearer '.concat(token);
         axios.get(BASE_URL + 'household/list', { headers: { Authorization: AuthStr } }).then((response) =>
             {
-                console.log(response);
                 let myData = response.data;
 
-                console.log(myData);
                 let list = [];
                 let key =[];
                 for (let i = 0; i < myData._embedded.length; i++) {
                     let embedded = myData._embedded[i];
                     list.push(embedded.friendlyName);
-                    key.push(embedded.systemId);
-
+                    key.push(embedded.id);
                 }
-                let output = key.map(function(obj,index){
-                    let myobj = {};
-                    myobj[list[index]] = obj;
-                    return myobj;
-                });
-
 
                 this.setState({data: list, key: key});
 
@@ -79,23 +70,30 @@ class Houselhold extends Component {
             .catch((error) => {
                 console.log('error' + error);
             });
-    }
+    };
+
+
 
     render()
     {
 
         return(
             <div>
+				<FormSection name="houseHold">
 				<Field
-					name="houseHold"
+					name="id"
 					type="text"
 					component={renderDropdownList}
-					data={this.state.data}
+					data={this.state.key}
 					label="family"
 					className="form-control"
 					placeholder="select your family"
 					valueField="value"
+					value={this.state.key}
 				/>
+				</FormSection>
+
+
             </div>
             )
     }
@@ -116,12 +114,12 @@ class HouselholdRole extends Component {
         this.getRole()
     }
     getRole = (e) =>  {
-        let token = localStorage.getItem('id_token') || null;
+        let token = localStorage.getItem('idToken') || null;
         const AuthStr = 'Bearer '.concat(token);
         axios.get(BASE_URL + 'householdrole/list', { headers: { Authorization: AuthStr } }).then((response) =>
         {
 			let myData = response.data;
-            let list = []
+            let list = [];
             for (let i = 0; i < myData._embedded.length; i++) {
                 let embedded = myData._embedded[i];
                 list.push(embedded.friendlyName);
@@ -148,6 +146,7 @@ class HouselholdRole extends Component {
 					className="form-control"
 					placeholder="select your family"
 				/>
+
 			</div>
         )
     }
@@ -157,7 +156,7 @@ class HouselholdRole extends Component {
 export {
 	renderField,
 	Label,
-	Houselhold
+	Household
 };
 
 
@@ -168,24 +167,88 @@ const upazillas = [
 ];
 
 const districts = [
-    "1","2","3","4","5","6"
+    "DHAKA",
+    "BANDARBAN",
+    "BOGRA",
+    "BAGERHAT",
+    "FARIDPUR",
+    "BRAHMANBARIA",
+    "CHAPAINABABGANJ",
+    "CHUADANGA",
+    "GAZIPUR",
+    "CHANDPUR",
+    "JOYPURHAT",
+    "JHENAIDAH",
+    "GOPALGANJ",
+    "CHITTAGONG",
+    "PABNA",
+    "JESSORE",
+    "JAMALPUR",
+    "COMILLA",
+    "NAOGAON",
+    "KHULNA",
+    "KISHOREGONJ",
+    "COXS BAZAR",
+	"NATORE",
+	"KUSHTIA",
+	"MADARIPUR",
+	"FENI",
+	"RAJSHAHI",
+	"MAGURA",
+	"MANIKGANJ",
+	"KHAGRACHHARI",
+	"SIRAJGANJ",
+	"MEHERPUR",
+	"MUNSHIGANJ",
+	"LAKSHMIPUR",
+	"NARAIL",
+	"MYMENSINGH",
+	"NOAKHALI",
+	"SATKHIRA",
+	"NARAYANGANJ",
+	"RANGAMATI",
+	"DINAJPUR",
+	"NETRAKONA",
+	"GAIBANDHA",
+	"NARSINGDI",
+	"KURIGRAM",
+	"ABIGANJ",
+	"RAJBARI",
+	"BARGUNA",
+	"LALMONIRHAT",
+	"MAULVIBAZAR",
+	"SHARIATPUR",
+	"BARISAL",
+	"NILPHAMARI",
+	"SUNAMGANJ",
+	"SHERPUR",
+	"BHOLA",
+	"PANCHAGARH",
+	"SYLHET",
+	"TANGAIL",
+	"JHALOKATI",
+	"RANGPUR",
+	"PATUAKHALI",
+	"THAKURGAON",
+	"PIROJPUR",
 ];
 
 const divisions = [
-    "Dhaka", "Barisal","Khulna","Chittagong","Sylhet","Rajshahi"
+    "Dhaka", "Barisal","Khulna","Chittagong","Sylhet","Rajshahi", "Rangpur"
 ];
 
 const blocks = [
 	"1","2","3","4","5","6"
 ];
 
-const renderDropdownList = ({ input, data, valueField, textField }) =>
+const renderDropdownList = ({ input, data, valueField, textField, value }) =>
 	<DropdownList
 		{...input}
 		data={data}
 		valueField={valueField}
 		textField={textField}
 		onChange={input.onChange}
+		value={value}
 	/>;
 
 export class Address extends Component {
@@ -197,7 +260,7 @@ export class Address extends Component {
 						<div className="form-group">
 							<label className="control-label">Village</label>
 							<Field
-								name="village"
+								name="address_village"
 								label="{name}"
 								component="input"
 								type="text"
@@ -212,7 +275,7 @@ export class Address extends Component {
 						<div className="form-group">
 							<label className="control-label">Upazilla</label>
 							<Field
-								name="upazilla"
+								name="address_upazilla"
 								component={renderDropdownList}
 								data={upazillas}
 								valueField="upazilla"
@@ -225,7 +288,7 @@ export class Address extends Component {
 						<div className="form-group">
 							<label className="control-label">District</label>
 							<Field
-								name="district"
+								name="address_district"
 								component={renderDropdownList}
 								data={districts}
 								valueField="district"
@@ -238,7 +301,7 @@ export class Address extends Component {
 						<div className="form-group">
 							<label className="control-label">Division</label>
 							<Field
-								name="division"
+								name="address_division"
 								component={renderDropdownList}
 								data={divisions}
 								valueField="division"
@@ -251,6 +314,71 @@ export class Address extends Component {
 		);
 	}
 }
+
+export class Host extends Component {
+    render() {
+        return (
+			<div className="address-group">
+				<div className="row">
+					<div className="col-sm-12">
+						<div className="form-group">
+							<label className="control-label">Village</label>
+							<Field
+								name="host_address_village"
+								label="{name}"
+								component="input"
+								type="text"
+								className="form-control"
+							/>
+						</div>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">Upazilla</label>
+							<Field
+								name="host_address_upazilla"
+								component={renderDropdownList}
+								data={upazillas}
+								valueField="upazilla"
+								textField="upazilla"
+							/>
+						</div>
+					</div>
+
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">District</label>
+							<Field
+								name="host_address_district"
+								component={renderDropdownList}
+								data={districts}
+								valueField="district"
+								textField="district"
+							/>
+						</div>
+					</div>
+
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">Division</label>
+							<Field
+								name="host_address_division"
+								component={renderDropdownList}
+								data={divisions}
+								valueField="division"
+								textField="division"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+        );
+    }
+}
+
 
 export class Camp extends Component {
 	render() {
@@ -294,34 +422,42 @@ export class Camp extends Component {
 }
 
 export class GetLocation extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.getMyLocation = this.getMyLocation.bind(this);
-	}
+    }
 
     getMyLocation = () => {
         const location = window.navigator && window.navigator.geolocation;
-
         if (location) {
             location.getCurrentPosition((position) => {
-                this.props.change('latitude', position.coords.latitude);
-            })
-        }
-	};
-
-	render(){
-    	const {latitude} = this.props;
+                this.props.onLocationChanged(position.coords);
+            },
+				(positionError) => {
+            	console.log(positionError.message);
+            	this.props.onLocationChanged("0")
+            },{maximumAge:0, timeout: 60000})
+        } else {
+        	console.log();
+        	this.props.onLocationChanged("0")
+		}
+    };
+    render(){
         return(
-		<div>
-			<p>Your location is </p>
-			<Field
-				name="latitude"
-				component="input"
-			/>
-			{/*<input name="latitude" value={this.state.latitude} />*/}
-			{/*<input type="text" name="longitude" value={longitude} />*/}
-			<button type="button" onClick={this.getMyLocation.bind(this)}>Get Geolocation</button>
-		</div>
+			<div>
+				<p>Your location is </p>
+				<Field
+					name="latitude"
+					component="input"
+					className="form-control"
+				/>
+				<Field
+					name="longitude"
+					component="input"
+					className="form-control"
+				/><br/>
+				<button type="button" className="btn btn-success" onClick={this.getMyLocation.bind(this)}>Get Geolocation</button>
+			</div>
 
         );
     }
