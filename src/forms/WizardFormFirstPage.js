@@ -284,12 +284,12 @@ let WizardFormFirstPage = props => {
                                 <p className="help-block lead">
                                     আপনার জন্মতারিখ টি নিচে লিখুন।
                                 </p><br/>
-                                <p className="help-block">it goes like this: DD-MM-YYYY</p>
+                                <p className="help-block">it goes like this: YYYY-MM-DD</p>
                                 <p className="help-block">তারিখ, মাস, বছর - এভাবে লিখুন।</p>
 
                                 {/*<div className="input-group day">*/}
                                     <Field
-                                        name="dob"
+                                        name="dateOfBirth"
                                         type="text"
                                         label="day"
                                         component="input"
@@ -297,7 +297,7 @@ let WizardFormFirstPage = props => {
                                         className="form-control"
                                     />
 
-                                   {" "}<Field name="dob" component={renderError}/>
+                                   {" "}<Field name="dateOfBirth" component={renderError}/>
 
 
                                 {/*</div>*/}

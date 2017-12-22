@@ -17,7 +17,6 @@ let showResults = (values, dispatch, callback) =>{
             alert("Your submit was successful");
             localStorage.setItem('humanID', response.data.humanId);
             let human = localStorage.getItem('humanID');
-            console.log(human);
         }).then(function () {
         dispatch(reset('wizard'));
         if (callback){

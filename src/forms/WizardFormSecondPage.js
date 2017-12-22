@@ -66,11 +66,8 @@ let WizardFormSecondPage = props => {
           <p className="help-block">It can be a husband, wife, children or grandparent. Select the appropriate one. </p>
           <Field name="houseHoldRole" component="select" className="form-control">
               <option />
-            <option value="1">None</option>
-            <option value="2">Husband</option>
-            <option value="3">Spouse</option>
-            <option value="4">Child-1</option>
-            <option value="5">Child-2</option>
+              <option value="1">Head</option>
+              <option value="2">Member</option>
             </Field>
         </div>
 

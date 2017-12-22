@@ -119,7 +119,7 @@ class HouselholdRole extends Component {
         axios.get(BASE_URL + 'householdrole/list', { headers: { Authorization: AuthStr } }).then((response) =>
         {
 			let myData = response.data;
-            let list = []
+            let list = [];
             for (let i = 0; i < myData._embedded.length; i++) {
                 let embedded = myData._embedded[i];
                 list.push(embedded.friendlyName);
@@ -146,6 +146,7 @@ class HouselholdRole extends Component {
 					className="form-control"
 					placeholder="select your family"
 				/>
+
 			</div>
         )
     }

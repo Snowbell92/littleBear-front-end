@@ -1,39 +1,35 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 import validate from '../middleware/validate';
-import PropTypes from 'prop-types';
-import axios,{ post } from 'axios';
+import { post } from 'axios';
 import {BASE_URL} from '../middleware/api';
+import {connect} from "react-redux";
+import WizardForm from './WizardForm';
 
-const WizardFormThirdPage = (props) => {
-    const {handleSubmit, pristine, previousPage, submitting} = props;
-    const onFormSubmit = (values) => {
+let WizardFormPhoto = (props) => {
+    const {handleSubmit, pristine, previousPage, submitting, reset} = props;
+    const onFormSubmit = (data, callback) => {
         let humanID = localStorage.getItem('humanID');
         let token =localStorage.getItem('idToken');
         const AuthStr = 'Bearer '.concat(token);
-        let myData = {
-            'photo' : values.profile_pic[0],
-            'humanId' : humanID
-        }
-        //formData.append('humanID', humanID);
-        //formData.append('profile_pic', data.profile_pic[0]);
+        let formData = new FormData();
+        formData.append('humanId', humanID);
+        formData.append('photo', data.profile_pic[0]);
         const config = {
             headers: {'content-type': 'multipart/form-data', 'Authorization' : AuthStr}
-        }
+        };
         const url = BASE_URL + 'human/upload';
 
-        post(url, myData, config)
+        post(url, formData, config)
             .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(myData);
-                console.log(values);
-                console.log(error.response);
+                alert(response.data.message);
+                reset();
+            }).catch(function (error) {
+                console.log(error);
             });
     };
     return (
-        <form onSubmit={handleSubmit(onFormSubmit)} className="form-horizontal">
+        <form onSubmit={handleSubmit(onFormSubmit.bind(this))} className="form-horizontal">
             <div className="step-3">
                 <div className="form-group">
                     <label className="col-sm-2 control-label">Add Photo</label>
@@ -48,9 +44,10 @@ const WizardFormThirdPage = (props) => {
         </form>
     );
 };
+
+
 export default reduxForm({
-    form: 'uploadPhoto', //                 <------ same form name
-    destroyOnUnmount: false, //        <------ preserve form data
+    form: 'wizard', //                 <------ same form name
     forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
     validate,
-})(WizardFormThirdPage);
+})(WizardFormPhoto);
