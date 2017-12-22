@@ -1,11 +1,21 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 import {
-    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS,QUOTE_REQUEST,QUOTE_SUCCESS,QUOTE_FAILURE, SUBMIT_SUCCESS
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT_SUCCESS,
+    QUOTE_REQUEST,
+    QUOTE_SUCCESS,
+    QUOTE_FAILURE,
+    SUBMIT_SUCCESS,
+    SUBMIT_PHOTO_SUCCESS,
+    CLEAR_SUBMIT
 } from './actions'
 function auth(state = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem('idToken') ? true : false
+    isAuthenticated: localStorage.getItem('idToken') ? true : false,
+    isFillingForm: localStorage.getItem('idToken') ? true : false
 }, action) {
     switch (action.type) {
         case LOGIN_REQUEST:
@@ -18,6 +28,7 @@ function auth(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: true,
+                isFillingForm: true,
                 errorMessage: ''
             })
         case LOGIN_FAILURE:
@@ -63,14 +74,23 @@ function quotes(state = {
 }
 
 function saved (state = {
-    isSubmitted : false
+    isSubmitted: false,
+    isPhotoSubmitted: false
 }, action){
     switch (action.type){
+        case CLEAR_SUBMIT:
+            return Object.assign({}, state, {
+                isSubmitted: false,
+                isPhotoSubmitted: false
+            })
         case SUBMIT_SUCCESS:
             return Object.assign({},state, {
                 isSubmitted: true
             })
-
+        case SUBMIT_PHOTO_SUCCESS:
+            return Object.assign({},state, {
+                isPhotoSubmitted: true
+            })
         default:
             return state
     }

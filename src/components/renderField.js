@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from "react";
-import { Field, reduxForm,FormSection, change } from "redux-form";
+import React, { Component } from "react";
+import { Field, FormSection } from "redux-form";
 import DropdownList from "react-widgets/lib/DropdownList";
 import "react-widgets/dist/css/react-widgets.css";
 import axios from 'axios';
@@ -185,7 +185,7 @@ export class Address extends Component {
 	}
 	render() {
 		const emptyArray = [];
-		const {division, district, upazilla} = this.state;
+		const {division, district} = this.state;
 		return (
 			<div className="address-group">
 				<div className="row">
@@ -203,7 +203,6 @@ export class Address extends Component {
 									district: undefined,
 									upazilla: undefined
 								})}
-								value={division || ''}
 							/>
 						</div>
 					</div>
@@ -223,7 +222,6 @@ export class Address extends Component {
 									district: string,
 									upazilla: undefined
 								})}
-								value={district || ''}
 							/>
 						</div>
 					</div>
@@ -275,7 +273,7 @@ export class Host extends Component {
 	}
     render() {
 		const emptyArray = [];
-		const {division, district, upazilla} = this.state;
+		const {division, district} = this.state;
         return (
 			<div className="address-group">
 				<div className="row">
@@ -293,7 +291,6 @@ export class Host extends Component {
 									district: undefined,
 									upazilla: undefined
 								})}
-								value={division || ''}
 							/>
 						</div>
 					</div>
@@ -313,7 +310,6 @@ export class Host extends Component {
 									district: string,
 									upazilla: undefined
 								})}
-								value={district || ''}
 							/>
 						</div>
 					</div>

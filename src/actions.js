@@ -1,8 +1,10 @@
 import querystring from 'querystring';
 import axios  from 'axios';
-import {reset} from 'redux-form';
 
 import {CALL_API, BASE_URL} from './middleware/api';
+
+export const STOP_FILLING_FORM = 'STOP_FILLING_FORM';
+export const START_FILLING_FORM = 'START_FILLING_FORM';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -115,7 +117,9 @@ export function fetchQuote() {
     }
 }
 
+export const CLEAR_SUBMIT = 'CLEAR_SUBMIT';
 export const SUBMIT_SUCCESS = 'SUBMIT_SUCCESS';
+export const SUBMIT_PHOTO_SUCCESS = 'SUBMIT_PHOTO_SUCCESS';
 
 function submitSuccess(humanID){
     console.log('it happened!');
@@ -127,6 +131,11 @@ function submitSuccess(humanID){
 
 }
 
+export function clearSubmit() {
+    return dispatch => dispatch({
+        type: CLEAR_SUBMIT
+    })
+}
 export function saveData(values, callback){
     let token = localStorage.getItem('idToken');
     const AuthStr = 'Bearer '.concat(token);
@@ -134,15 +143,14 @@ export function saveData(values, callback){
         headers: { 'Content-Type':'application/json','Authorization' : AuthStr }
     };
 
-
     return dispatch => {
-
         axios.post(BASE_URL + 'human/new', values, headers)
             .then(function (response) {
                 console.log(values);
                 console.log(response);
                 alert("Your submit was successful");
-                let humanID = response.data.humanId;
+                const humanID = response.data.humanId;
+                localStorage.setItem('humanID', humanID);
                 dispatch(submitSuccess(humanID));
                 //dispatch(reset('wizard'));
                 if (callback) {
@@ -150,9 +158,8 @@ export function saveData(values, callback){
                 }
             }).catch(function (error) {
                 console.log(values);
-            console.log(error.response);
-            alert(error.response.statusText);
+                console.log(error.response);
+                alert(error.response.statusText);
         });
     };
-
 }

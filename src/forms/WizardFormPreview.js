@@ -1,8 +1,7 @@
 import React from 'react';
-import {Field, reduxForm, getFormValues } from 'redux-form';
+import {reduxForm, getFormValues } from 'redux-form';
 import {connect} from "react-redux";
 import validate from '../middleware/validate';
-import {reset} from 'redux-form';
 
 const FetchValues = connect(state => ({
     values: getFormValues('wizard')(state),
@@ -24,6 +23,7 @@ const FetchValues = connect(state => ({
                 <h5>Gender</h5>
             </div>
             <div className="col-xs-12">
+            {console.log(typeof values.sex, values.sex)}
                 {values.sex == 1 &&
                 <p>Male</p>
                 }

@@ -23,7 +23,6 @@ let WizardFormPhoto = (props) => {
         post(url, formData, config)
             .then(function (response) {
                 alert(response.data.message);
-                reset();
                 onSubmit(response.data);
             }).catch(function (error) {
                 console.log(error);

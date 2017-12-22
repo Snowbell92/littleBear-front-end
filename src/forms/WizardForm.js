@@ -32,13 +32,11 @@ class WizardForm extends Component {
     }
 
     backToOne() {
-        this.setState({page: 1,})
+        this.setState({page: 1})
     }
 
-
-
     render() {
-        const {onSubmit} = this.props;
+        const {onSubmitUser, onSubmitPhoto} = this.props;
         const {page, submitSucceeded} = this.state;
         return (
             <div>
@@ -52,7 +50,7 @@ class WizardForm extends Component {
                 <WizardFormPreview
                     previousPage={this.previousPage}
                     onSubmit={values => {
-                        onSubmit(values, () => {
+                        onSubmitUser(values, () => {
                             this.setState({
                                 submitSucceeded: true
                             });
@@ -61,10 +59,7 @@ class WizardForm extends Component {
                     }}
                 />}
                 {submitSucceeded && page === 4 &&
-                <WizardFormPhoto onSubmit={data => {
-                    console.log(data.message)
-                    this.setState({ page: 1, });
-                }}/>
+                <WizardFormPhoto onSubmit={onSubmitPhoto}/>
                 }
             </div>
         );
@@ -72,7 +67,8 @@ class WizardForm extends Component {
 }
 
 WizardForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    onSubmitUser: PropTypes.func.isRequired,
+    onSubmitPhoto: PropTypes.func.isRequired
 };
 
 
