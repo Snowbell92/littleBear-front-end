@@ -4,6 +4,7 @@ import DropdownList from "react-widgets/lib/DropdownList";
 import "react-widgets/dist/css/react-widgets.css";
 import axios from 'axios';
 import {BASE_URL} from './../middleware/api'
+import places from './../places'
 
 
 const renderField = ({ input, label, type, meta: { touched, error } }) =>
@@ -159,84 +160,6 @@ export {
 	Household
 };
 
-
-
-
-const upazillas = [
-	"red", "green","blue"
-];
-
-const districts = [
-    "DHAKA",
-    "BANDARBAN",
-    "BOGRA",
-    "BAGERHAT",
-    "FARIDPUR",
-    "BRAHMANBARIA",
-    "CHAPAINABABGANJ",
-    "CHUADANGA",
-    "GAZIPUR",
-    "CHANDPUR",
-    "JOYPURHAT",
-    "JHENAIDAH",
-    "GOPALGANJ",
-    "CHITTAGONG",
-    "PABNA",
-    "JESSORE",
-    "JAMALPUR",
-    "COMILLA",
-    "NAOGAON",
-    "KHULNA",
-    "KISHOREGONJ",
-    "COXS BAZAR",
-	"NATORE",
-	"KUSHTIA",
-	"MADARIPUR",
-	"FENI",
-	"RAJSHAHI",
-	"MAGURA",
-	"MANIKGANJ",
-	"KHAGRACHHARI",
-	"SIRAJGANJ",
-	"MEHERPUR",
-	"MUNSHIGANJ",
-	"LAKSHMIPUR",
-	"NARAIL",
-	"MYMENSINGH",
-	"NOAKHALI",
-	"SATKHIRA",
-	"NARAYANGANJ",
-	"RANGAMATI",
-	"DINAJPUR",
-	"NETRAKONA",
-	"GAIBANDHA",
-	"NARSINGDI",
-	"KURIGRAM",
-	"ABIGANJ",
-	"RAJBARI",
-	"BARGUNA",
-	"LALMONIRHAT",
-	"MAULVIBAZAR",
-	"SHARIATPUR",
-	"BARISAL",
-	"NILPHAMARI",
-	"SUNAMGANJ",
-	"SHERPUR",
-	"BHOLA",
-	"PANCHAGARH",
-	"SYLHET",
-	"TANGAIL",
-	"JHALOKATI",
-	"RANGPUR",
-	"PATUAKHALI",
-	"THAKURGAON",
-	"PIROJPUR",
-];
-
-const divisions = [
-    "Dhaka", "Barisal","Khulna","Chittagong","Sylhet","Rajshahi", "Rangpur"
-];
-
 const blocks = [
 	"1","2","3","4","5","6"
 ];
@@ -252,9 +175,76 @@ const renderDropdownList = ({ input, data, valueField, textField, value }) =>
 	/>;
 
 export class Address extends Component {
+	constructor() {
+		super();
+		this.state = {
+			division: undefined,
+			district: undefined,
+			upazilla: undefined
+		}
+	}
 	render() {
+		const emptyArray = [];
+		const {division, district, upazilla} = this.state;
 		return (
 			<div className="address-group">
+				<div className="row">
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">Division</label>
+							<Field
+								name="address_division"
+								component={renderDropdownList}
+								data={Object.keys(places)}
+								valueField="division"
+								textField="division"
+								onChange={(letters, string) => this.setState({
+									division: string,
+									district: undefined,
+									upazilla: undefined
+								})}
+								value={division || ''}
+							/>
+						</div>
+					</div>
+
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">District</label>
+							<Field
+								name="address_district"
+								component={renderDropdownList}
+								data={division
+									? Object.keys(places[division])
+									: emptyArray}
+								valueField="district"
+								textField="district"
+								onChange={(letters, string) => this.setState({
+									district: string,
+									upazilla: undefined
+								})}
+								value={district || ''}
+							/>
+						</div>
+					</div>
+
+					<div className="col-sm-4">
+						<div className="form-group">
+							<label className="control-label">Upazilla</label>
+							<Field
+								name="address_upazilla"
+								component={renderDropdownList}
+								data={division && district
+									? places[division][district]
+									: emptyArray}
+								valueField="upazilla"
+								textField="upazilla"
+								onChange={(letters, string) => this.setState({upazilla: string})}
+							/>
+						</div>
+					</div>
+				</div>
+
 				<div className="row">
 					<div className="col-sm-12">
 						<div className="form-group">
@@ -269,81 +259,41 @@ export class Address extends Component {
 						</div>
 					</div>
 				</div>
-
-				<div className="row">
-					<div className="col-sm-4">
-						<div className="form-group">
-							<label className="control-label">Upazilla</label>
-							<Field
-								name="address_upazilla"
-								component={renderDropdownList}
-								data={upazillas}
-								valueField="upazilla"
-								textField="upazilla"
-							/>
-						</div>
-					</div>
-
-					<div className="col-sm-4">
-						<div className="form-group">
-							<label className="control-label">District</label>
-							<Field
-								name="address_district"
-								component={renderDropdownList}
-								data={districts}
-								valueField="district"
-								textField="district"
-							/>
-						</div>
-					</div>
-
-					<div className="col-sm-4">
-						<div className="form-group">
-							<label className="control-label">Division</label>
-							<Field
-								name="address_division"
-								component={renderDropdownList}
-								data={divisions}
-								valueField="division"
-								textField="division"
-							/>
-						</div>
-					</div>
-				</div>
 			</div>
 		);
 	}
 }
 
 export class Host extends Component {
+	constructor() {
+		super();
+		this.state = {
+			division: undefined,
+			district: undefined,
+			upazilla: undefined
+		}
+	}
     render() {
+		const emptyArray = [];
+		const {division, district, upazilla} = this.state;
         return (
 			<div className="address-group">
 				<div className="row">
-					<div className="col-sm-12">
-						<div className="form-group">
-							<label className="control-label">Village</label>
-							<Field
-								name="host_address_village"
-								label="{name}"
-								component="input"
-								type="text"
-								className="form-control"
-							/>
-						</div>
-					</div>
-				</div>
-
-				<div className="row">
 					<div className="col-sm-4">
 						<div className="form-group">
-							<label className="control-label">Upazilla</label>
+							<label className="control-label">Division</label>
 							<Field
-								name="host_address_upazilla"
+								name="host_address_division"
 								component={renderDropdownList}
-								data={upazillas}
-								valueField="upazilla"
-								textField="upazilla"
+								data={Object.keys(places)}
+								valueField="division"
+								textField="division"
+								onChange={(letters, string) => this.setState({
+									division: string,
+									district: undefined,
+									upazilla: undefined
+								})}
+								value={division || ''}
 							/>
 						</div>
 					</div>
@@ -354,22 +304,47 @@ export class Host extends Component {
 							<Field
 								name="host_address_district"
 								component={renderDropdownList}
-								data={districts}
+								data={division
+									? Object.keys(places[division])
+									: emptyArray}
 								valueField="district"
 								textField="district"
+								onChange={(letters, string) => this.setState({
+									district: string,
+									upazilla: undefined
+								})}
+								value={district || ''}
 							/>
 						</div>
 					</div>
 
 					<div className="col-sm-4">
 						<div className="form-group">
-							<label className="control-label">Division</label>
+							<label className="control-label">Upazilla</label>
 							<Field
-								name="host_address_division"
+								name="host_address_upazilla"
 								component={renderDropdownList}
-								data={divisions}
-								valueField="division"
-								textField="division"
+								data={division && district
+									? places[division][district]
+									: emptyArray}
+								valueField="upazilla"
+								textField="upazilla"
+								onChange={(letters, string) => this.setState({upazilla: string})}
+							/>
+						</div>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className="col-sm-12">
+						<div className="form-group">
+							<label className="control-label">Village</label>
+							<Field
+								name="host_address_village"
+								label="{name}"
+								component="input"
+								type="text"
+								className="form-control"
 							/>
 						</div>
 					</div>
@@ -411,7 +386,7 @@ export class Camp extends Component {
 					<Field
 						name="camp_ward"
 						component={renderDropdownList}
-						data={districts}
+						data={Object.keys(places)}
 						valueField="district"
 						textField="district"
 					/>
