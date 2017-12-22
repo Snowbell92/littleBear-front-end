@@ -5,7 +5,7 @@ import {reduxForm} from 'redux-form';
 import WizardFormFirstPage from './WizardFormFirstPage';
 import WizardFormSecondPage from './WizardFormSecondPage';
 import WizardFormPreview from './WizardFormPreview';
-import WizardFormPhoto from './WizardFormThirdPage'
+import WizardFormPhoto from './WizardFormPhoto'
 import {
     isSubmitting,
     hasSubmitSucceeded,
@@ -61,7 +61,10 @@ class WizardForm extends Component {
                     }}
                 />}
                 {submitSucceeded && page === 4 &&
-                <WizardFormPhoto onSubmit={onSubmit}/>
+                <WizardFormPhoto onSubmit={data => {
+                    console.log(data.message)
+                    this.setState({ page: 1, });
+                }}/>
                 }
             </div>
         );

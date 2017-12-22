@@ -1,4 +1,6 @@
-export const BASE_URL = 'http://littlebearapp/web/app_dev.php/api/';
+// export const BASE_URL = 'http://littlebearapp/web/app_dev.php/api/';
+export const BASE_URL = 'http://acf-bangladesh.on-web.fr/api/web/api/';
+
 
 function callApi(endpoint, authenticated) {
 

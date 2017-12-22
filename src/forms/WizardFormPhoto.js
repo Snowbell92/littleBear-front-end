@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import WizardForm from './WizardForm';
 
 let WizardFormPhoto = (props) => {
-    const {handleSubmit, pristine, previousPage, submitting, reset} = props;
+    const {handleSubmit, pristine, previousPage, submitting, reset, onSubmit} = props;
     const onFormSubmit = (data, callback) => {
         let humanID = localStorage.getItem('humanID');
         let token =localStorage.getItem('idToken');
@@ -24,6 +24,7 @@ let WizardFormPhoto = (props) => {
             .then(function (response) {
                 alert(response.data.message);
                 reset();
+                onSubmit(response.data);
             }).catch(function (error) {
                 console.log(error);
             });
@@ -34,7 +35,7 @@ let WizardFormPhoto = (props) => {
                 <div className="form-group">
                     <label className="col-sm-2 control-label">Add Photo</label>
                     <div className="col-sm-10">
-                        <Field name="profile_pic" component="input" type="file"/>
+                        <Field name="profile_pic" component={FileInput} type="file"/>
                     </div>
                 </div>
                 <div className="clearfix">
@@ -45,6 +46,26 @@ let WizardFormPhoto = (props) => {
     );
 };
 
+
+const adaptFileEventToValue = delegate => e => delegate(e.target.files);
+const FileInput = ({
+    input: {
+        value: omitValue,
+        onChange,
+        onBlur,
+        inputProps,
+    },
+    meta: omitMeta,
+    props,
+}) => (
+    <input
+        onChange={adaptFileEventToValue(onChange)}
+        onBlur={adaptFileEventToValue(onBlur)}
+        type="file"
+        {...inputProps}
+        {...props}
+    />
+);
 
 export default reduxForm({
     form: 'wizard', //                 <------ same form name
