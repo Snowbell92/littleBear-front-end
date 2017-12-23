@@ -90,7 +90,10 @@ export function loginUser(creds) {
                     // Dispatch the success action
                     dispatch(receiveLogin(user));
                 }
-            }).catch(err => console.log("Error: ", err))
+            }).catch( (err) => {
+                alert(err);
+                console.log("Error: ", err)
+            })
     }
 }
 
@@ -152,7 +155,6 @@ export function saveData(values, callback){
                 const humanID = response.data.humanId;
                 localStorage.setItem('humanID', humanID);
                 dispatch(submitSuccess(humanID));
-                //dispatch(reset('wizard'));
                 if (callback) {
                     callback();
                 }

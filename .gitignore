@@ -3,3 +3,5 @@
 /.idea/*
 **/*.map
 *node_modules/
+build/
+littlebear/

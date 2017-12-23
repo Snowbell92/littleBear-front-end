@@ -20,7 +20,7 @@ class TestComponent extends Component {
                                     onSubmitUser={saveData}
                                     onSubmitPhoto={handleSubmitPhoto}
                                 />
-                                <Values form="wizard" />
+                                {/*<Values form="wizard" />*/}
                             </div>
                         </div>
                     </div></section>

@@ -27,9 +27,11 @@ class App extends Component{
                 }
                 <div className='container'>
                     {isPhotoSubmitted &&
-                    <div>
-                        <div>User succesfully created with photo</div>
-                        <button onClick={() => dispatch({type: CLEAR_SUBMIT})}>Add another user</button>
+                    <div className="row">
+                        <div className="col-xs-6 text-center success-block center-block">
+                        <h4>User succesfully created with photo</h4>
+                        <button onClick={() => dispatch({type: CLEAR_SUBMIT})} className="btn btn-primary btn-lg">Add another user</button>
+                        </div>
                     </div>
                     }
                     {!isPhotoSubmitted &&
