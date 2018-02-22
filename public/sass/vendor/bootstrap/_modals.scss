@@ -143,6 +143,7 @@
 
   // Modal sizes
   .modal-sm { width: $modal-sm; }
+  .modal-md { width: 400px; }
 }
 
 @media (min-width: $screen-md-min) {
